@@ -8,7 +8,6 @@ import {
   GraduationCap,
   Sparkles,
   ArrowRight,
-  PieChart,
   HelpCircle,
   Percent,
   Calendar,
@@ -60,7 +59,6 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
     const target = targetCorpus;
     const i = targetReturnRate / 12 / 100;
     const n = targetYears * 12;
-    // P = Target / [((1 + i)^n - 1) / i * (1 + i)]
     const factor = ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
     const monthlyNeeded = factor > 0 ? target / factor : 0;
     const totalInvested = monthlyNeeded * n;
@@ -103,34 +101,31 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
   const educationInflationId = useId();
 
   return (
-    <section id="calculators" className="py-24 relative bg-[#060B13] border-t border-white/[0.06]">
-      {/* Background Ambience */}
-      <div className="absolute inset-0 bg-mesh-dark pointer-events-none" />
-
+    <section id="calculators" className="py-24 relative bg-slate-50 border-t border-slate-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 relative">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-100/80 border border-orange-300 text-amulya-orange text-xs font-bold uppercase tracking-wider mb-4">
             <Sparkles className="w-3.5 h-3.5" />
             Interactive Wealth Architecture Engine
           </div>
-          <h2 className="font-serif text-3xl sm:text-5xl font-bold text-white tracking-tight">
+          <h2 className="font-serif text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight">
             Simulate Your Compounding Power
           </h2>
-          <p className="mt-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+          <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
             Mathematical discipline beats market timing. Explore real-time compounding projections tailored to your family&apos;s milestone horizons.
           </p>
         </div>
 
         {/* Tab Navigator */}
         <div className="mt-12 flex justify-center">
-          <div className="p-1.5 rounded-2xl bg-[#0B132B]/90 border border-white/10 backdrop-blur-xl flex flex-wrap gap-1 sm:gap-2">
+          <div className="p-1.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-wrap gap-1 sm:gap-2">
             <button
               onClick={() => setActiveTab("sip")}
-              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
                 activeTab === "sip"
-                  ? "bg-gradient-to-r from-amber-400 to-amber-500 text-obsidian shadow-gold"
-                  : "text-slate-300 hover:text-white hover:bg-white/[0.04]"
+                  ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-orange"
+                  : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
               }`}
             >
               <TrendingUp className="w-4 h-4" />
@@ -139,10 +134,10 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
 
             <button
               onClick={() => setActiveTab("crorepati")}
-              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
                 activeTab === "crorepati"
-                  ? "bg-gradient-to-r from-amber-400 to-amber-500 text-obsidian shadow-gold"
-                  : "text-slate-300 hover:text-white hover:bg-white/[0.04]"
+                  ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-orange"
+                  : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
               }`}
             >
               <Target className="w-4 h-4" />
@@ -151,10 +146,10 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
 
             <button
               onClick={() => setActiveTab("education")}
-              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
                 activeTab === "education"
-                  ? "bg-gradient-to-r from-amber-400 to-amber-500 text-obsidian shadow-gold"
-                  : "text-slate-300 hover:text-white hover:bg-white/[0.04]"
+                  ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-orange"
+                  : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
               }`}
             >
               <GraduationCap className="w-4 h-4" />
@@ -164,9 +159,7 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
         </div>
 
         {/* Calculator Body Card */}
-        <div className="mt-10 rounded-3xl bg-[#09101C]/80 border border-white/[0.08] backdrop-blur-2xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
-
+        <div className="mt-10 rounded-3xl bg-white border border-slate-200/80 p-6 sm:p-10 shadow-card relative overflow-hidden">
           <AnimatePresence mode="wait">
             {/* TAB 1: SIP & WEALTH COMPOUNDER */}
             {activeTab === "sip" && (
@@ -183,11 +176,11 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                   {/* Slider 1: Monthly Investment */}
                   <div>
                     <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={sipMonthlyId} className="text-sm font-medium text-slate-300 flex items-center gap-2 cursor-pointer">
-                        <Wallet className="w-4 h-4 text-gold" />
+                      <label htmlFor={sipMonthlyId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
+                        <Wallet className="w-4 h-4 text-amulya-orange" />
                         Monthly Investment (SIP)
                       </label>
-                      <span className="font-mono text-base font-bold text-white bg-white/[0.05] border border-white/10 px-3 py-1 rounded-lg">
+                      <span className="font-mono text-base font-bold text-slate-900 bg-orange-50 border border-orange-200 px-3 py-1 rounded-lg">
                         ₹{formatNumberINR(sipMonthly)}
                       </span>
                     </div>
@@ -201,7 +194,7 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                       onChange={(e) => setSipMonthly(Number(e.target.value))}
                       className="w-full cursor-pointer"
                     />
-                    <div className="flex justify-between text-[11px] text-slate-400 mt-1.5 font-mono">
+                    <div className="flex justify-between text-[11px] text-slate-500 mt-1.5 font-mono">
                       <span>₹5,000</span>
                       <span>₹2,50,000</span>
                       <span>₹5,00,000</span>
@@ -212,11 +205,11 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                   {/* Slider 2: Expected Annual Return */}
                   <div>
                     <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={sipReturnRateId} className="text-sm font-medium text-slate-300 flex items-center gap-2 cursor-pointer">
-                        <Percent className="w-4 h-4 text-emerald-growth" />
+                      <label htmlFor={sipReturnRateId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
+                        <Percent className="w-4 h-4 text-amulya-blue" />
                         Expected Annual Return (CAGR)
                       </label>
-                      <span className="font-mono text-base font-bold text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-3 py-1 rounded-lg">
+                      <span className="font-mono text-base font-bold text-sky-700 bg-sky-50 border border-sky-200 px-3 py-1 rounded-lg">
                         {sipReturnRate}%
                       </span>
                     </div>
@@ -230,7 +223,7 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                       onChange={(e) => setSipReturnRate(Number(e.target.value))}
                       className="w-full cursor-pointer"
                     />
-                    <div className="flex justify-between text-[11px] text-slate-400 mt-1.5 font-mono">
+                    <div className="flex justify-between text-[11px] text-slate-500 mt-1.5 font-mono">
                       <span>8% (Conservative)</span>
                       <span>13.5% (Balanced Equity)</span>
                       <span>24% (Aggressive)</span>
@@ -240,11 +233,11 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                   {/* Slider 3: Time Period */}
                   <div>
                     <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={sipYearsId} className="text-sm font-medium text-slate-300 flex items-center gap-2 cursor-pointer">
-                        <Calendar className="w-4 h-4 text-gold" />
+                      <label htmlFor={sipYearsId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
+                        <Calendar className="w-4 h-4 text-amulya-orange" />
                         Investment Horizon
                       </label>
-                      <span className="font-mono text-base font-bold text-white bg-white/[0.05] border border-white/10 px-3 py-1 rounded-lg">
+                      <span className="font-mono text-base font-bold text-slate-900 bg-slate-100 border border-slate-200 px-3 py-1 rounded-lg">
                         {sipYears} {sipYears === 1 ? "Year" : "Years"}
                       </span>
                     </div>
@@ -258,7 +251,7 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                       onChange={(e) => setSipYears(Number(e.target.value))}
                       className="w-full cursor-pointer"
                     />
-                    <div className="flex justify-between text-[11px] text-slate-400 mt-1.5 font-mono">
+                    <div className="flex justify-between text-[11px] text-slate-500 mt-1.5 font-mono">
                       <span>1 Year</span>
                       <span>10 Years</span>
                       <span>20 Years</span>
@@ -267,59 +260,59 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                   </div>
 
                   {/* Compounding Pro-tip */}
-                  <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] flex items-start gap-3">
-                    <HelpCircle className="w-4 h-4 text-gold mt-0.5 shrink-0" />
-                    <p className="text-xs text-slate-400 leading-relaxed">
+                  <div className="p-4 rounded-xl bg-orange-50/50 border border-orange-200/60 flex items-start gap-3">
+                    <HelpCircle className="w-4 h-4 text-amulya-orange mt-0.5 shrink-0" />
+                    <p className="text-xs text-slate-600 leading-relaxed">
                       Compounding shows geometric acceleration after year 10. By continuing through market volatility, your wealth multiplier expands exponentially.
                     </p>
                   </div>
                 </div>
 
-                {/* Results Column */}
-                <div className="lg:col-span-5 bg-[#0B132B]/80 rounded-2xl border border-white/10 p-6 sm:p-8 flex flex-col justify-between shadow-card">
+                {/* Results Column (Deep Navy Accent Box) */}
+                <div className="lg:col-span-5 bg-[#0A1E3F] text-white rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-xl">
                   <div>
-                    <div className="text-xs uppercase tracking-widest font-semibold text-slate-400">
+                    <div className="text-xs uppercase tracking-widest font-bold text-sky-200">
                       Estimated Future Corpus
                     </div>
-                    <div className="mt-2 font-serif text-3xl sm:text-4xl font-extrabold text-gold-gradient tracking-tight">
+                    <div className="mt-2 font-serif text-3xl sm:text-4xl font-extrabold text-orange-400 tracking-tight">
                       {formatINR(sipResult.maturity)}
                     </div>
 
                     {/* Progress Bar Visualizer */}
                     <div className="mt-6">
-                      <div className="flex justify-between text-xs text-slate-400 mb-1.5 font-medium">
+                      <div className="flex justify-between text-xs text-sky-200 mb-1.5 font-medium">
                         <span>Invested ({Math.round(100 - sipResult.gainRatio)}%)</span>
-                        <span className="text-emerald-400">Wealth Gain ({Math.round(sipResult.gainRatio)}%)</span>
+                        <span className="text-orange-400 font-bold">Gain ({Math.round(sipResult.gainRatio)}%)</span>
                       </div>
-                      <div className="h-3 w-full bg-slate-800 rounded-full overflow-hidden flex">
+                      <div className="h-3 w-full bg-slate-700/60 rounded-full overflow-hidden flex">
                         <div
-                          className="bg-slate-500 h-full transition-all duration-300"
+                          className="bg-slate-400 h-full transition-all duration-300"
                           style={{ width: `${100 - sipResult.gainRatio}%` }}
                         />
                         <div
-                          className="bg-gradient-to-r from-emerald-500 to-emerald-400 h-full transition-all duration-300"
+                          className="bg-gradient-to-r from-orange-500 to-amber-400 h-full transition-all duration-300"
                           style={{ width: `${sipResult.gainRatio}%` }}
                         />
                       </div>
                     </div>
 
                     {/* Breakdown Numbers */}
-                    <div className="mt-6 space-y-3.5 border-t border-white/[0.06] pt-4">
+                    <div className="mt-6 space-y-3.5 border-t border-white/10 pt-4">
                       <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-400">Total Capital Invested</span>
-                        <span className="font-mono font-semibold text-slate-200">
+                        <span className="text-slate-300">Total Capital Invested</span>
+                        <span className="font-mono font-semibold text-white">
                           {formatINR(sipResult.invested)}
                         </span>
                       </div>
                       <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-400">Estimated Wealth Creation</span>
-                        <span className="font-mono font-semibold text-emerald-400">
+                        <span className="text-slate-300">Estimated Wealth Creation</span>
+                        <span className="font-mono font-bold text-orange-400">
                           +{formatINR(sipResult.wealthGain)}
                         </span>
                       </div>
                       <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-400">Wealth Multiplier</span>
-                        <span className="font-mono font-semibold text-gold">
+                        <span className="text-slate-300">Wealth Multiplier</span>
+                        <span className="font-mono font-bold text-sky-300">
                           {(sipResult.maturity / (sipResult.invested || 1)).toFixed(2)}x
                         </span>
                       </div>
@@ -327,7 +320,7 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                   </div>
 
                   {/* Conversion Button */}
-                  <div className="mt-8 pt-6 border-t border-white/[0.06]">
+                  <div className="mt-8 pt-6 border-t border-white/10">
                     <button
                       onClick={() =>
                         onOpenConsultation
@@ -338,12 +331,12 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                             )
                           : document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
                       }
-                      className="w-full py-3.5 px-4 rounded-xl text-xs sm:text-sm font-semibold text-obsidian bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 transition-all duration-300 shadow-gold flex items-center justify-center gap-2"
+                      className="w-full py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-orange transition-all flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <span>Lock In This Wealth Roadmap</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
-                    <p className="text-[11px] text-center text-slate-400 mt-2">
+                    <p className="text-[11px] text-center text-sky-200/80 mt-2">
                       Private institutional fund allocations tailored to your tax slab.
                     </p>
                   </div>
@@ -362,9 +355,8 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
               >
                 <div className="lg:col-span-7 space-y-7">
-                  {/* Target Corpus Presets */}
                   <div>
-                    <label className="text-sm font-medium text-slate-300 block mb-2.5">
+                    <label className="text-sm font-semibold text-slate-800 block mb-2.5">
                       Select Target Milestone Corpus
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -374,8 +366,8 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                           onClick={() => setTargetCorpus(corpus)}
                           className={`py-3 px-2 rounded-xl text-xs font-bold font-mono transition-all border ${
                             targetCorpus === corpus
-                              ? "bg-gold text-obsidian border-gold shadow-gold"
-                              : "bg-white/[0.03] text-slate-200 border-white/10 hover:border-gold/40"
+                              ? "bg-amulya-orange text-white border-amulya-orange shadow-orange"
+                              : "bg-slate-50 text-slate-800 border-slate-200 hover:border-amulya-orange"
                           }`}
                         >
                           {formatINR(corpus)}
@@ -384,14 +376,13 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                     </div>
                   </div>
 
-                  {/* Slider: Time to Achieve Target */}
                   <div>
                     <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={targetYearsId} className="text-sm font-medium text-slate-300 flex items-center gap-2 cursor-pointer">
-                        <Calendar className="w-4 h-4 text-gold" />
+                      <label htmlFor={targetYearsId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
+                        <Calendar className="w-4 h-4 text-amulya-orange" />
                         Target Timeframe to Achieve
                       </label>
-                      <span className="font-mono text-base font-bold text-white bg-white/[0.05] border border-white/10 px-3 py-1 rounded-lg">
+                      <span className="font-mono text-base font-bold text-slate-900 bg-slate-100 border border-slate-200 px-3 py-1 rounded-lg">
                         {targetYears} Years
                       </span>
                     </div>
@@ -405,7 +396,7 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                       onChange={(e) => setTargetYears(Number(e.target.value))}
                       className="w-full cursor-pointer"
                     />
-                    <div className="flex justify-between text-[11px] text-slate-400 mt-1.5 font-mono">
+                    <div className="flex justify-between text-[11px] text-slate-500 mt-1.5 font-mono">
                       <span>3 Years</span>
                       <span>10 Years</span>
                       <span>20 Years</span>
@@ -413,14 +404,13 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                     </div>
                   </div>
 
-                  {/* Slider: Compounding Rate */}
                   <div>
                     <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={targetReturnRateId} className="text-sm font-medium text-slate-300 flex items-center gap-2 cursor-pointer">
-                        <Percent className="w-4 h-4 text-emerald-growth" />
+                      <label htmlFor={targetReturnRateId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
+                        <Percent className="w-4 h-4 text-amulya-blue" />
                         Assumed Portfolio Return Rate
                       </label>
-                      <span className="font-mono text-base font-bold text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-3 py-1 rounded-lg">
+                      <span className="font-mono text-base font-bold text-sky-700 bg-sky-50 border border-sky-200 px-3 py-1 rounded-lg">
                         {targetReturnRate}%
                       </span>
                     </div>
@@ -437,40 +427,39 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                   </div>
                 </div>
 
-                {/* Results Column */}
-                <div className="lg:col-span-5 bg-[#0B132B]/80 rounded-2xl border border-white/10 p-6 sm:p-8 flex flex-col justify-between shadow-card">
+                <div className="lg:col-span-5 bg-[#0A1E3F] text-white rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-xl">
                   <div>
-                    <div className="text-xs uppercase tracking-widest font-semibold text-slate-400">
+                    <div className="text-xs uppercase tracking-widest font-bold text-sky-200">
                       Required Monthly Disciplined SIP
                     </div>
-                    <div className="mt-2 font-serif text-3xl sm:text-4xl font-extrabold text-gold-gradient tracking-tight">
+                    <div className="mt-2 font-serif text-3xl sm:text-4xl font-extrabold text-orange-400 tracking-tight">
                       ₹{formatNumberINR(crorepatiResult.monthlyNeeded)}{" "}
-                      <span className="text-sm font-sans font-normal text-slate-400">/ month</span>
+                      <span className="text-sm font-sans font-normal text-slate-300">/ month</span>
                     </div>
 
-                    <div className="mt-6 space-y-3.5 border-t border-white/[0.06] pt-4">
+                    <div className="mt-6 space-y-3.5 border-t border-white/10 pt-4">
                       <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-400">Target Milestone</span>
+                        <span className="text-slate-300">Target Milestone</span>
                         <span className="font-mono font-semibold text-white">
                           {formatINR(targetCorpus)}
                         </span>
                       </div>
                       <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-400">Total Capital Outlay</span>
-                        <span className="font-mono font-semibold text-slate-300">
+                        <span className="text-slate-300">Total Capital Outlay</span>
+                        <span className="font-mono font-semibold text-slate-200">
                           {formatINR(crorepatiResult.totalInvested)}
                         </span>
                       </div>
                       <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-400">Gain Generated by Markets</span>
-                        <span className="font-mono font-semibold text-emerald-400">
+                        <span className="text-slate-300">Gain Generated by Markets</span>
+                        <span className="font-mono font-bold text-orange-400">
                           +{formatINR(crorepatiResult.wealthGain)}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-8 pt-6 border-t border-white/[0.06]">
+                  <div className="mt-8 pt-6 border-t border-white/10">
                     <button
                       onClick={() =>
                         onOpenConsultation
@@ -483,7 +472,7 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                             )
                           : document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
                       }
-                      className="w-full py-3.5 px-4 rounded-xl text-xs sm:text-sm font-semibold text-obsidian bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 transition-all duration-300 shadow-gold flex items-center justify-center gap-2"
+                      className="w-full py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-orange transition-all flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <span>Design Milestone Portfolio</span>
                       <ArrowRight className="w-4 h-4" />
@@ -504,14 +493,13 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
               >
                 <div className="lg:col-span-7 space-y-7">
-                  {/* Slider: Today's Cost */}
                   <div>
                     <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={currentCostId} className="text-sm font-medium text-slate-300 flex items-center gap-2 cursor-pointer">
-                        <GraduationCap className="w-4 h-4 text-gold" />
+                      <label htmlFor={currentCostId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
+                        <GraduationCap className="w-4 h-4 text-amulya-orange" />
                         Today&apos;s Cost of Target Education
                       </label>
-                      <span className="font-mono text-base font-bold text-white bg-white/[0.05] border border-white/10 px-3 py-1 rounded-lg">
+                      <span className="font-mono text-base font-bold text-slate-900 bg-orange-50 border border-orange-200 px-3 py-1 rounded-lg">
                         {formatINR(currentCost)}
                       </span>
                     </div>
@@ -525,7 +513,7 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                       onChange={(e) => setCurrentCost(Number(e.target.value))}
                       className="w-full cursor-pointer"
                     />
-                    <div className="flex justify-between text-[11px] text-slate-400 mt-1.5 font-mono">
+                    <div className="flex justify-between text-[11px] text-slate-500 mt-1.5 font-mono">
                       <span>₹5 Lakh</span>
                       <span>₹50 Lakh</span>
                       <span>₹1 Crore</span>
@@ -533,14 +521,13 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                     </div>
                   </div>
 
-                  {/* Slider: Years to Higher Education */}
                   <div>
                     <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={yearsToCollegeId} className="text-sm font-medium text-slate-300 flex items-center gap-2 cursor-pointer">
-                        <Calendar className="w-4 h-4 text-gold" />
+                      <label htmlFor={yearsToCollegeId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
+                        <Calendar className="w-4 h-4 text-amulya-orange" />
                         Years Until College / Degree Begins
                       </label>
-                      <span className="font-mono text-base font-bold text-white bg-white/[0.05] border border-white/10 px-3 py-1 rounded-lg">
+                      <span className="font-mono text-base font-bold text-slate-900 bg-slate-100 border border-slate-200 px-3 py-1 rounded-lg">
                         {yearsToCollege} Years
                       </span>
                     </div>
@@ -556,14 +543,13 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                     />
                   </div>
 
-                  {/* Slider: Education Inflation */}
                   <div>
                     <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={educationInflationId} className="text-sm font-medium text-slate-300 flex items-center gap-2 cursor-pointer">
-                        <TrendingUp className="w-4 h-4 text-amber-400" />
+                      <label htmlFor={educationInflationId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
+                        <TrendingUp className="w-4 h-4 text-orange-600" />
                         Education Inflation Rate
                       </label>
-                      <span className="font-mono text-base font-bold text-amber-400 bg-amber-950/40 border border-amber-500/20 px-3 py-1 rounded-lg">
+                      <span className="font-mono text-base font-bold text-orange-700 bg-orange-50 border border-orange-200 px-3 py-1 rounded-lg">
                         {educationInflation}% p.a.
                       </span>
                     </div>
@@ -577,45 +563,41 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                       onChange={(e) => setEducationInflation(Number(e.target.value))}
                       className="w-full cursor-pointer"
                     />
-                    <p className="text-xs text-slate-400 mt-1.5">
-                      Higher education inflation in India & globally averages 9-11% per year, roughly double consumer inflation.
-                    </p>
                   </div>
                 </div>
 
-                {/* Results Column */}
-                <div className="lg:col-span-5 bg-[#0B132B]/80 rounded-2xl border border-white/10 p-6 sm:p-8 flex flex-col justify-between shadow-card">
+                <div className="lg:col-span-5 bg-[#0A1E3F] text-white rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-xl">
                   <div>
-                    <div className="text-xs uppercase tracking-widest font-semibold text-slate-400">
+                    <div className="text-xs uppercase tracking-widest font-bold text-sky-200">
                       Inflated Cost at Admission
                     </div>
-                    <div className="mt-2 font-serif text-3xl sm:text-4xl font-extrabold text-gold-gradient tracking-tight">
+                    <div className="mt-2 font-serif text-3xl sm:text-4xl font-extrabold text-orange-400 tracking-tight">
                       {formatINR(educationResult.futureCost)}
                     </div>
 
-                    <div className="mt-6 space-y-3.5 border-t border-white/[0.06] pt-4">
+                    <div className="mt-6 space-y-3.5 border-t border-white/10 pt-4">
                       <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-400">Required Monthly SIP</span>
-                        <span className="font-mono font-bold text-emerald-400 text-base">
+                        <span className="text-slate-300">Required Monthly SIP</span>
+                        <span className="font-mono font-bold text-orange-400 text-base">
                           ₹{formatNumberINR(educationResult.monthlyNeeded)}/mo
                         </span>
                       </div>
                       <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-400">Today&apos;s Baseline Cost</span>
-                        <span className="font-mono text-slate-300">
+                        <span className="text-slate-300">Today&apos;s Baseline Cost</span>
+                        <span className="font-mono text-slate-200">
                           {formatINR(currentCost)}
                         </span>
                       </div>
                       <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-400">Inflation Addition</span>
-                        <span className="font-mono text-amber-400">
+                        <span className="text-slate-300">Inflation Addition</span>
+                        <span className="font-mono text-sky-300 font-semibold">
                           +{formatINR(educationResult.inflationHike)}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-8 pt-6 border-t border-white/[0.06]">
+                  <div className="mt-8 pt-6 border-t border-white/10">
                     <button
                       onClick={() =>
                         onOpenConsultation
@@ -628,7 +610,7 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                             )
                           : document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
                       }
-                      className="w-full py-3.5 px-4 rounded-xl text-xs sm:text-sm font-semibold text-obsidian bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 transition-all duration-300 shadow-gold flex items-center justify-center gap-2"
+                      className="w-full py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-orange transition-all flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <span>Secure Child&apos;s Education Plan</span>
                       <ArrowRight className="w-4 h-4" />

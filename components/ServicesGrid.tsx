@@ -31,7 +31,6 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
       ],
       icon: Compass,
       colSpan: "lg:col-span-7",
-      highlight: true,
     },
     {
       id: "pms",
@@ -45,7 +44,6 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
       ],
       icon: ShieldCheck,
       colSpan: "lg:col-span-5",
-      highlight: false,
     },
     {
       id: "mf",
@@ -59,7 +57,6 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
       ],
       icon: TrendingUp,
       colSpan: "lg:col-span-4",
-      highlight: false,
     },
     {
       id: "broking",
@@ -73,7 +70,6 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
       ],
       icon: Building2,
       colSpan: "lg:col-span-4",
-      highlight: true,
     },
     {
       id: "pe",
@@ -87,7 +83,6 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
       ],
       icon: Sparkles,
       colSpan: "lg:col-span-4",
-      highlight: false,
     },
     {
       id: "bonds",
@@ -101,7 +96,6 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
       ],
       icon: Lock,
       colSpan: "lg:col-span-6",
-      highlight: false,
     },
     {
       id: "estate",
@@ -115,62 +109,58 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
       ],
       icon: Award,
       colSpan: "lg:col-span-6",
-      highlight: false,
     },
   ];
 
   return (
-    <section id="services" className="py-24 relative bg-[#060B13] border-t border-white/[0.06]">
+    <section id="services" className="py-24 relative bg-white border-t border-slate-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         {/* Section Header */}
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-semibold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100/80 border border-sky-300 text-amulya-blue text-xs font-bold uppercase tracking-wider mb-4">
             Private Wealth Architecture
           </div>
-          <h2 className="font-serif text-3xl sm:text-5xl font-bold text-white tracking-tight">
+          <h2 className="font-serif text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight">
             Institutional Solutions For Every Horizon
           </h2>
-          <p className="mt-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+          <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
             From wealth preservation to aggressive equity compounding and intergenerational transmission, our offerings are designed to provide institutional security with boutique attention.
           </p>
         </div>
 
-        {/* Bento Grid */}
+        {/* Bento Grid (Clean White / Light Slate Cards) */}
         <div className="mt-14 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
           {services.map((svc) => {
             const Icon = svc.icon;
             return (
               <div
                 key={svc.id}
-                className={`${svc.colSpan} group relative rounded-3xl bg-[#09101C]/80 border border-white/[0.08] hover:border-gold/50 backdrop-blur-xl p-7 sm:p-9 transition-all duration-300 hover:-translate-y-1 hover:shadow-card flex flex-col justify-between overflow-hidden`}
+                className={`${svc.colSpan} group relative rounded-3xl bg-slate-50/70 hover:bg-white border border-slate-200/90 hover:border-orange-300 p-7 sm:p-9 transition-all duration-300 hover:-translate-y-1 hover:shadow-card flex flex-col justify-between overflow-hidden`}
               >
-                {/* Subtle top corner ambient glow */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-full blur-2xl group-hover:bg-gold/10 transition-colors pointer-events-none" />
-
                 <div>
                   {/* Top Bar of Card */}
                   <div className="flex items-center justify-between mb-6">
-                    <div className="p-3 rounded-2xl bg-white/[0.04] border border-white/10 text-gold group-hover:bg-gold/15 group-hover:text-gold-light group-hover:border-gold/40 transition-all duration-300">
+                    <div className="p-3 rounded-2xl bg-white border border-slate-200 text-amulya-blue group-hover:bg-amulya-orange group-hover:text-white group-hover:border-amulya-orange shadow-sm transition-all duration-300">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="text-[11px] font-semibold tracking-wider uppercase text-gold bg-gold/10 border border-gold/25 px-2.5 py-1 rounded-full">
+                    <span className="text-[11px] font-bold tracking-wider uppercase text-amulya-orange bg-orange-50 border border-orange-200/80 px-2.5 py-1 rounded-full">
                       {svc.badge}
                     </span>
                   </div>
 
                   {/* Title & Description */}
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-white group-hover:text-gold transition-colors">
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-amulya-orange transition-colors">
                     {svc.title}
                   </h3>
-                  <p className="mt-3 text-sm text-slate-300 leading-relaxed font-normal">
+                  <p className="mt-3 text-sm text-slate-600 leading-relaxed font-normal">
                     {svc.desc}
                   </p>
 
                   {/* Feature Checkpoints */}
-                  <div className="mt-6 pt-5 border-t border-white/[0.06] space-y-2.5">
+                  <div className="mt-6 pt-5 border-t border-slate-200/60 space-y-2.5">
                     {svc.features.map((feat, fIdx) => (
-                      <div key={fIdx} className="flex items-center gap-2.5 text-xs text-slate-300">
-                        <CheckCircle className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <div key={fIdx} className="flex items-center gap-2.5 text-xs text-slate-700 font-medium">
+                        <CheckCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                         <span>{feat}</span>
                       </div>
                     ))}
@@ -178,7 +168,7 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
                 </div>
 
                 {/* Footer Action */}
-                <div className="mt-8 pt-5 border-t border-white/[0.06] flex items-center justify-between">
+                <div className="mt-8 pt-5 border-t border-slate-200/60 flex items-center justify-between">
                   <button
                     onClick={() => {
                       if (onSelectService) {
@@ -187,7 +177,7 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
                         document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                       }
                     }}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 group-hover:text-gold transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-800 group-hover:text-amulya-orange transition-colors cursor-pointer"
                   >
                     <span>Request Strategy Brief</span>
                     <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />

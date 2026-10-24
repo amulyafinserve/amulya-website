@@ -27,19 +27,10 @@ export const metadata: Metadata = {
     "Portfolio Management Services",
     "Mutual Funds Advisory",
     "Financial Planning",
-    "Succession Planning",
     "Vadodara Wealth Advisor",
-    "Gujarat Financial Services",
   ],
-  authors: [{ name: "M K Jayaprakash" }],
-  openGraph: {
-    title: "Amulya Financial Services | Private Wealth Architecture",
-    description:
-      "Transforming complex capital markets into bespoke, goal-oriented family wealth structures. Backed by 32+ years of financial leadership.",
-    url: "https://amulyawealth.com",
-    siteName: "Amulya Financial Services",
-    locale: "en_IN",
-    type: "website",
+  icons: {
+    icon: "/amulya-logo.png",
   },
 };
 
@@ -49,8 +40,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} scroll-smooth dark`}>
-      <body className="min-h-screen bg-obsidian text-slate-100 antialiased selection:bg-gold/20 selection:text-gold-light">
+    <html lang="en" className={`${inter.variable} ${playfair.variable} scroll-smooth`}>
+      <body className="min-h-screen bg-white text-slate-900 antialiased selection:bg-orange-100 selection:text-orange-700">
         {children}
       </body>
     </html>
