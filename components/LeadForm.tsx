@@ -67,11 +67,11 @@ export default function LeadForm({ prefilledNote }: LeadFormProps) {
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 800);
+    }, 600);
   };
 
   const whatsappMessage = encodeURIComponent(
-    `Hello Amulya Wealth, I would like to schedule a private portfolio consultation.\nName: ${fullName || "Prospective Client"}\nPortfolio Target: ${wealthBracket}\nServices: ${selectedServices.join(", ")}`
+    `Hello Amulya Financial Services, I would like to schedule a private portfolio consultation.\nName: ${fullName || "Client Inquiry"}\nPortfolio Target: ${wealthBracket}\nServices: ${selectedServices.join(", ")}`
   );
 
   return (
@@ -89,7 +89,7 @@ export default function LeadForm({ prefilledNote }: LeadFormProps) {
                 Architect Your Family&apos;s Financial Future
               </h2>
               <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
-                Schedule a confidential, one-on-one wealth consultation with former institutional leadership. No cold calls, no sales pressure—only disciplined portfolio strategy.
+                Schedule a confidential, one-on-one wealth consultation with former institutional leadership. No third-party sales calls—only disciplined, bespoke portfolio strategy.
               </p>
             </div>
 
@@ -130,7 +130,7 @@ export default function LeadForm({ prefilledNote }: LeadFormProps) {
             <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-soft space-y-3">
               <div className="flex items-center gap-2.5 text-xs text-slate-700 font-medium">
                 <ShieldCheck className="w-4 h-4 text-amulya-orange shrink-0" />
-                <span>Strict Client Data Non-Disclosure & Privacy</span>
+                <span>Strict Client Data Non-Disclosure & Confidentiality</span>
               </div>
               <div className="flex items-center gap-2.5 text-xs text-slate-700 font-medium">
                 <Clock className="w-4 h-4 text-emerald-600 shrink-0" />
@@ -143,7 +143,7 @@ export default function LeadForm({ prefilledNote }: LeadFormProps) {
             </div>
           </div>
 
-          {/* Right Column: High-End Intake Form */}
+          {/* Right Column: Intake Form */}
           <div className="lg:col-span-7">
             <div className="rounded-3xl bg-white border border-slate-200/90 p-7 sm:p-10 shadow-card relative overflow-hidden">
               {isSubmitted ? (
@@ -155,7 +155,7 @@ export default function LeadForm({ prefilledNote }: LeadFormProps) {
                     Consultation Request Confirmed
                   </h3>
                   <p className="text-slate-600 text-sm max-w-md mx-auto leading-relaxed">
-                    Thank you, <span className="text-slate-900 font-bold">{fullName || "Valued Investor"}</span>. Mr. M K Jayaprakash and the Amulya advisory desk will review your requirements and reach out to you within 2 business hours.
+                    Thank you, <span className="text-slate-900 font-bold">{fullName || "Investor"}</span>. Your inquiry has been logged with the Amulya advisory desk. An advisor will contact you within 2 business hours.
                   </p>
 
                   <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -200,7 +200,7 @@ export default function LeadForm({ prefilledNote }: LeadFormProps) {
                           required
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
-                          placeholder="e.g. Rajesh Mehta"
+                          placeholder="Full Name"
                           className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-amulya-orange focus:bg-white transition-colors"
                         />
                       </div>
@@ -217,7 +217,7 @@ export default function LeadForm({ prefilledNote }: LeadFormProps) {
                           required
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          placeholder="+91 98765 43210"
+                          placeholder="Mobile Number"
                           className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-amulya-orange focus:bg-white transition-colors"
                         />
                       </div>
@@ -236,7 +236,7 @@ export default function LeadForm({ prefilledNote }: LeadFormProps) {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="rajesh@domain.com"
+                        placeholder="Email Address"
                         className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-amulya-orange focus:bg-white transition-colors"
                       />
                     </div>
@@ -300,7 +300,7 @@ export default function LeadForm({ prefilledNote }: LeadFormProps) {
                       rows={3}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      placeholder="e.g. I want to restructure my mutual funds for retirement and explore Motilal Oswal PMS."
+                      placeholder="Please share any specific requirements or advisory topics..."
                       className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-amulya-orange focus:bg-white transition-colors"
                     />
                   </div>
@@ -311,7 +311,7 @@ export default function LeadForm({ prefilledNote }: LeadFormProps) {
                     disabled={isSubmitting}
                     className="w-full py-4 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-orange transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <span>{isSubmitting ? "Submitting Mandate..." : "Confirm Consultation Request"}</span>
+                    <span>{isSubmitting ? "Submitting Request..." : "Confirm Consultation Request"}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </form>
@@ -324,7 +324,7 @@ export default function LeadForm({ prefilledNote }: LeadFormProps) {
       {/* Floating Direct WhatsApp Button */}
       <div className="fixed bottom-6 right-6 z-40">
         <a
-          href="https://wa.me/919879583119?text=Hello%20Amulya%20Wealth%2C%20I%20would%20like%20to%20schedule%20a%20private%20portfolio%20consultation."
+          href="https://wa.me/919879583119?text=Hello%20Amulya%20Financial%20Services%2C%20I%20would%20like%20to%20schedule%20a%20private%20portfolio%20consultation."
           target="_blank"
           rel="noopener noreferrer"
           className="group relative flex items-center gap-2.5 px-4 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95"

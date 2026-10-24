@@ -23,6 +23,7 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
       id: "planning",
       title: "Holistic Financial & Goal Planning",
       badge: "Core Architecture",
+      category: "Advisory Mandate",
       desc: "Milestone-driven roadmap engineering for retirement freedom, child higher education, and life goal prioritization with rigorous risk management.",
       features: [
         "Cash flow & asset liability mapping",
@@ -36,6 +37,7 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
       id: "pms",
       title: "Portfolio Management Services (PMS)",
       badge: "Ultra-HNI Mandates",
+      category: "High-Conviction Equity",
       desc: "Bespoke, concentrated equity portfolios managed by India's top asset managers, focused on alpha generation and compounding over multi-year cycles.",
       features: [
         "Direct equity ownership",
@@ -49,6 +51,7 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
       id: "mf",
       title: "Mutual Fund Portfolio Construction",
       badge: "Disciplined Compounding",
+      category: "AMFI Registered",
       desc: "Scientific asset allocation matching your risk tolerance. Active rebalancing, fund manager track record screening, and periodic tax harvesting.",
       features: [
         "No bias or distributor churn",
@@ -62,6 +65,7 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
       id: "broking",
       title: "Equity Broking & Derivatives (Motilal Oswal)",
       badge: "Institutional Alliance",
+      category: "NSE / BSE Trading",
       desc: "Institutional grade research, algorithmic trade execution, and derivatives advisory backed by former leadership and active partnership with Motilal Oswal.",
       features: [
         "Award-winning equity research reports",
@@ -75,7 +79,8 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
       id: "pe",
       title: "Private Equity & Pre-IPO Mandates",
       badge: "Exclusive Access",
-      desc: "Curated allocations in high-growth unlisted enterprises and late-stage pre-IPO unicorns before public market debut.",
+      category: "Unlisted Growth",
+      desc: "Curated allocations in high-growth unlisted enterprises and late-stage pre-IPO leaders before public market debut.",
       features: [
         "Vetted corporate governance checks",
         "Access to disruptive tech & industrial leaders",
@@ -88,6 +93,7 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
       id: "bonds",
       title: "Fixed Income & Sovereign Bonds",
       badge: "Capital Preservation",
+      category: "Sovereign / Corporate Debt",
       desc: "High-safety sovereign instruments, PSU debt, structured corporate debentures, and tax-free bonds for predictable family cash flow.",
       features: [
         "AAA / Sovereign security focus",
@@ -101,6 +107,7 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
       id: "estate",
       title: "Will, Trust & Succession Planning",
       badge: "Multi-Generational Legacy",
+      category: "Fiduciary Structuring",
       desc: "Safeguard your family's generational continuity. Structuring family trusts, formal wills, and smooth asset distribution without legal dispute.",
       features: [
         "Family governance charters",
@@ -124,11 +131,11 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
             Institutional Solutions For Every Horizon
           </h2>
           <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
-            From wealth preservation to aggressive equity compounding and intergenerational transmission, our offerings are designed to provide institutional security with boutique attention.
+            From wealth preservation to aggressive equity compounding and intergenerational transmission, our offerings provide institutional security with personalized family office attention.
           </p>
         </div>
 
-        {/* Bento Grid (Clean White / Light Slate Cards) */}
+        {/* Bento Grid */}
         <div className="mt-14 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
           {services.map((svc) => {
             const Icon = svc.icon;
@@ -182,8 +189,8 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
                     <span>Request Strategy Brief</span>
                     <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </button>
-                  <span className="text-[10px] uppercase font-mono text-slate-400 tracking-widest">
-                    AFS-SOL-{svc.id.toUpperCase()}
+                  <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+                    {svc.category}
                   </span>
                 </div>
               </div>

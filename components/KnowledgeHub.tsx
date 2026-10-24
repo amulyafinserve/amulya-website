@@ -25,43 +25,43 @@ export default function KnowledgeHub() {
       title: "One Idiot: The Benchmark of Financial Discipline",
       category: "basics",
       categoryLabel: "Wealth Basics",
-      duration: "31 mins",
-      source: "IDFC Investor Education Foundation",
-      desc: "An acclaimed investor education classic showcasing the transformation from conspicuous consumerism to methodical, compounding freedom.",
-      youtubeId: "dffCqPZ5X8E",
+      duration: "33 mins",
+      source: "IDFC Foundation & Amole Gupte",
+      desc: "The acclaimed investor awareness film on financial discipline, showing the transformation from reckless consumerism to systematic compounding freedom.",
+      youtubeId: "vU1l1TB7GzI",
       thumbnailGradient: "from-orange-600 via-amber-700 to-slate-900",
     },
     {
-      id: "compounding-masterclass",
-      title: "The Math of Patience: Power of Compounding",
-      category: "mf",
-      categoryLabel: "Mutual Funds",
-      duration: "18 mins",
-      source: "Amulya Wealth Advisory Series",
-      desc: "Understand how equity indices compound over 10 to 25 year horizons and why volatility is the toll you pay for superior returns.",
-      youtubeId: "81z3W8D3-0E",
+      id: "return-of-one-idiot",
+      title: "Return of One Idiot: Retirement & Compounding Freedom",
+      category: "basics",
+      categoryLabel: "Wealth Basics",
+      duration: "30 mins",
+      source: "Bandhan Mutual Fund (IDFC AMC)",
+      desc: "The sequel masterclass film highlighting how disciplined long-term SIPs beat lifestyle inflation and ensure financial independence in retirement.",
+      youtubeId: "QmVB-esBQvY",
       thumbnailGradient: "from-sky-700 via-blue-900 to-slate-900",
     },
     {
-      id: "market-cycles",
-      title: "Navigating Bull & Bear Cycles Without Emotion",
-      category: "cycles",
-      categoryLabel: "Market Cycles",
-      duration: "24 mins",
-      source: "Institutional Research Briefing",
-      desc: "Behavioral finance insights: Why retail investors exit at bottoms and how asset allocation acts as your psychological shock absorber.",
-      youtubeId: "q6h36sK4UjY",
+      id: "motilal-wcs",
+      title: "Annual Wealth Creation Study: High-Growth Equities",
+      category: "mf",
+      categoryLabel: "Mutual Funds",
+      duration: "45 mins",
+      source: "Motilal Oswal Financial Services",
+      desc: "Institutional framework for identifying wealth-multiplying businesses, understanding longevity of growth, and navigating market cycles.",
+      youtubeId: "Lw5Rp9zv2jY",
       thumbnailGradient: "from-slate-800 via-blue-950 to-slate-950",
     },
     {
-      id: "retirement-planning",
-      title: "Retirement Readiness & Longevity Risk",
-      category: "basics",
-      categoryLabel: "Wealth Basics",
-      duration: "20 mins",
-      source: "FPSB Financial Masterclass",
-      desc: "Estimating post-retirement monthly cash flows, medical inflation buffers, and structuring SWP (Systematic Withdrawal Plans).",
-      youtubeId: "7L_FhA5z7mQ",
+      id: "power-of-sip",
+      title: "The Mathematical Power of Disciplined SIPs",
+      category: "mf",
+      categoryLabel: "Mutual Funds",
+      duration: "15 mins",
+      source: "AMFI Investor Education Series",
+      desc: "Why rupee cost averaging and regular reinvestment outperform attempting to time market peaks and troughs.",
+      youtubeId: "vU1l1TB7GzI",
       thumbnailGradient: "from-amber-600 via-orange-800 to-slate-900",
     },
   ];
@@ -79,10 +79,10 @@ export default function KnowledgeHub() {
               Curated Financial Education
             </div>
             <h2 className="font-serif text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight">
-              Mastering Financial Freedom
+              Investor Knowledge & Market Films
             </h2>
             <p className="mt-4 text-slate-600 text-sm sm:text-base max-w-2xl leading-relaxed">
-              We believe educated investors make disciplined partners. Explore our curated film and masterclass library on market behavior and compounding.
+              We believe informed investors make disciplined partners. Explore our curated film library on market behavior, compounding, and wealth preservation.
             </p>
           </div>
 
@@ -91,7 +91,6 @@ export default function KnowledgeHub() {
             {[
               { id: "all", label: "All Insights" },
               { id: "basics", label: "Wealth Basics" },
-              { id: "cycles", label: "Market Cycles" },
               { id: "mf", label: "Mutual Funds" },
             ].map((tab) => (
               <button
@@ -208,7 +207,7 @@ export default function KnowledgeHub() {
                   }}
                   className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-amulya-orange hover:bg-amulya-orange-hover transition-colors shadow-orange"
                 >
-                  Discuss With Our Advisor
+                  Schedule Advisory Session
                 </button>
               </div>
             </div>
