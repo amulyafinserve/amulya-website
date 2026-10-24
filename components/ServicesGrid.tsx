@@ -8,9 +8,7 @@ import {
   Sparkles,
   Building2,
   Lock,
-  Award,
-  ArrowUpRight,
-  CheckCircle,
+  ArrowRight,
 } from "lucide-react";
 
 interface ServicesGridProps {
@@ -20,162 +18,92 @@ interface ServicesGridProps {
 export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
   const services = [
     {
-      id: "planning",
-      title: "Holistic Financial & Goal Planning",
-      badge: "Core Architecture",
-      category: "Advisory Mandate",
-      desc: "Milestone-driven roadmap engineering for retirement freedom, child higher education, and life goal prioritization with rigorous risk management.",
-      features: [
-        "Cash flow & asset liability mapping",
-        "Retirement corpus stress testing",
-        "Tax-efficient asset location",
-      ],
+      id: "financial-planning",
+      title: "FINANCIAL PLANNING",
+      desc: "Financial goals can include buying a home, savings for your child's education, planning for your retirement or estate planning.",
       icon: Compass,
-      colSpan: "lg:col-span-7",
+      tag: "Goal Orientation",
     },
     {
-      id: "pms",
-      title: "Portfolio Management Services (PMS)",
-      badge: "Ultra-HNI Mandates",
-      category: "High-Conviction Equity",
-      desc: "Bespoke, concentrated equity portfolios managed by India's top asset managers, focused on alpha generation and compounding over multi-year cycles.",
-      features: [
-        "Direct equity ownership",
-        "High conviction 15-25 stock portfolios",
-        "Regular institutional manager reviews",
-      ],
-      icon: ShieldCheck,
-      colSpan: "lg:col-span-5",
-    },
-    {
-      id: "mf",
-      title: "Mutual Fund Portfolio Construction",
-      badge: "Disciplined Compounding",
-      category: "AMFI Registered",
-      desc: "Scientific asset allocation matching your risk tolerance. Active rebalancing, fund manager track record screening, and periodic tax harvesting.",
-      features: [
-        "No bias or distributor churn",
-        "Multi-cap, flexi-cap & hybrid balancing",
-        "Digital paperless onboarding",
-      ],
+      id: "mutual-fund",
+      title: "MUTUAL FUND",
+      desc: "At Amulya our role is to analyse your need and advice and help you to invest as per your need and requirements.",
       icon: TrendingUp,
-      colSpan: "lg:col-span-4",
+      tag: "AMFI Registered",
     },
     {
-      id: "broking",
-      title: "Equity Broking & Derivatives (Motilal Oswal)",
-      badge: "Institutional Alliance",
-      category: "NSE / BSE Trading",
-      desc: "Institutional grade research, algorithmic trade execution, and derivatives advisory backed by former leadership and active partnership with Motilal Oswal.",
-      features: [
-        "Award-winning equity research reports",
-        "Direct dealing desk support",
-        "Advanced margin trading facility (MTF)",
-      ],
-      icon: Building2,
-      colSpan: "lg:col-span-4",
+      id: "portfolio-management-service",
+      title: "PORTFOLIO MANAGEMENT SERVICE",
+      desc: "We at Amulya Financial Services will help you to identify best options for you to choose from select fund houses.",
+      icon: ShieldCheck,
+      tag: "PMS Mandates",
     },
     {
-      id: "pe",
-      title: "Private Equity & Pre-IPO Mandates",
-      badge: "Exclusive Access",
-      category: "Unlisted Growth",
-      desc: "Curated allocations in high-growth unlisted enterprises and late-stage pre-IPO leaders before public market debut.",
-      features: [
-        "Vetted corporate governance checks",
-        "Access to disruptive tech & industrial leaders",
-        "Transparent depository transfers",
-      ],
+      id: "private-equity",
+      title: "PRIVATE EQUITY",
+      desc: "We at Amulya will help you to get best Mandate for you.",
       icon: Sparkles,
-      colSpan: "lg:col-span-4",
+      tag: "Unlisted Leaders",
     },
     {
-      id: "bonds",
-      title: "Fixed Income & Sovereign Bonds",
-      badge: "Capital Preservation",
-      category: "Sovereign / Corporate Debt",
-      desc: "High-safety sovereign instruments, PSU debt, structured corporate debentures, and tax-free bonds for predictable family cash flow.",
-      features: [
-        "AAA / Sovereign security focus",
-        "Regular interest payouts & cash flow matching",
-        "Inflation hedging mechanics",
-      ],
+      id: "broking-services",
+      title: "BROKING SERVICES",
+      desc: "We have partnered with Motilal Oswal Securities Ltd the leading Brokerage service in the Country.",
+      icon: Building2,
+      tag: "Motilal Oswal Partner",
+    },
+    {
+      id: "fd-bonds",
+      title: "FD-BONDS",
+      desc: "There are many avenues other than Bank Fixed Deposits.",
       icon: Lock,
-      colSpan: "lg:col-span-6",
-    },
-    {
-      id: "estate",
-      title: "Will, Trust & Succession Planning",
-      badge: "Multi-Generational Legacy",
-      category: "Fiduciary Structuring",
-      desc: "Safeguard your family's generational continuity. Structuring family trusts, formal wills, and smooth asset distribution without legal dispute.",
-      features: [
-        "Family governance charters",
-        "Private revocable & irrevocable trusts",
-        "Smooth cross-generation inheritance",
-      ],
-      icon: Award,
-      colSpan: "lg:col-span-6",
+      tag: "Capital Preservation",
     },
   ];
 
   return (
-    <section id="services" className="py-24 relative bg-white border-t border-slate-200/80">
+    <section id="services" className="py-20 relative bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        {/* Section Header */}
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100/80 border border-sky-300 text-amulya-blue text-xs font-bold uppercase tracking-wider mb-4">
-            Private Wealth Architecture
-          </div>
-          <h2 className="font-serif text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight">
-            Institutional Solutions For Every Horizon
+        {/* Exact Section Header from Original Site */}
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 uppercase tracking-tight">
+            Our Services
           </h2>
+          <div className="w-16 h-1 bg-amulya-orange mx-auto mt-3 rounded-full" />
           <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
-            From wealth preservation to aggressive equity compounding and intergenerational transmission, our offerings provide institutional security with personalized family office attention.
+            Customized advice and financial solutions designed for wealth creation and superior execution.
           </p>
         </div>
 
-        {/* Bento Grid */}
-        <div className="mt-14 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+        {/* 6 Original Service Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {services.map((svc) => {
             const Icon = svc.icon;
             return (
               <div
                 key={svc.id}
-                className={`${svc.colSpan} group relative rounded-3xl bg-slate-50/70 hover:bg-white border border-slate-200/90 hover:border-orange-300 p-7 sm:p-9 transition-all duration-300 hover:-translate-y-1 hover:shadow-card flex flex-col justify-between overflow-hidden`}
+                className="group relative rounded-2xl bg-white border border-slate-200 hover:border-amulya-orange p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-card flex flex-col justify-between"
               >
                 <div>
-                  {/* Top Bar of Card */}
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-3 rounded-2xl bg-white border border-slate-200 text-amulya-blue group-hover:bg-amulya-orange group-hover:text-white group-hover:border-amulya-orange shadow-sm transition-all duration-300">
-                      <Icon className="w-6 h-6" />
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="p-3.5 rounded-2xl bg-orange-50 text-amulya-orange group-hover:bg-amulya-orange group-hover:text-white transition-all duration-300 shadow-sm">
+                      <Icon className="w-7 h-7" />
                     </div>
-                    <span className="text-[11px] font-bold tracking-wider uppercase text-amulya-orange bg-orange-50 border border-orange-200/80 px-2.5 py-1 rounded-full">
-                      {svc.badge}
+                    <span className="text-[11px] font-bold text-sky-800 bg-sky-50 border border-sky-200 px-2.5 py-0.5 rounded-full uppercase">
+                      {svc.tag}
                     </span>
                   </div>
 
-                  {/* Title & Description */}
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-amulya-orange transition-colors">
+                  <h3 className="font-sans text-lg sm:text-xl font-extrabold text-slate-900 group-hover:text-amulya-orange transition-colors uppercase tracking-tight">
                     {svc.title}
                   </h3>
+
                   <p className="mt-3 text-sm text-slate-600 leading-relaxed font-normal">
                     {svc.desc}
                   </p>
-
-                  {/* Feature Checkpoints */}
-                  <div className="mt-6 pt-5 border-t border-slate-200/60 space-y-2.5">
-                    {svc.features.map((feat, fIdx) => (
-                      <div key={fIdx} className="flex items-center gap-2.5 text-xs text-slate-700 font-medium">
-                        <CheckCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                        <span>{feat}</span>
-                      </div>
-                    ))}
-                  </div>
                 </div>
 
-                {/* Footer Action */}
-                <div className="mt-8 pt-5 border-t border-slate-200/60 flex items-center justify-between">
+                <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between">
                   <button
                     onClick={() => {
                       if (onSelectService) {
@@ -184,14 +112,11 @@ export default function ServicesGrid({ onSelectService }: ServicesGridProps) {
                         document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                       }
                     }}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-800 group-hover:text-amulya-orange transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-amulya-orange hover:text-orange-700 transition-colors cursor-pointer"
                   >
-                    <span>Request Strategy Brief</span>
-                    <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    <span>Inquire Now</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
-                  <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">
-                    {svc.category}
-                  </span>
                 </div>
               </div>
             );

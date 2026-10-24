@@ -4,19 +4,13 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  ShieldCheck,
-  ChevronDown,
   Phone,
   Mail,
   ExternalLink,
   Menu,
   X,
-  Calculator,
-  Compass,
-  TrendingUp,
-  Award,
-  Sparkles,
   Lock,
+  UserPlus,
 } from "lucide-react";
 
 interface NavbarProps {
@@ -25,9 +19,6 @@ interface NavbarProps {
 
 export default function Navbar({ onOpenConsultation }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
-  const [solutionsOpen, setSolutionsOpen] = useState(false);
-  const [calculatorsOpen, setCalculatorsOpen] = useState(false);
-  const [portalsOpen, setPortalsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -38,147 +29,23 @@ export default function Navbar({ onOpenConsultation }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const wealthSolutions = [
-    {
-      title: "Holistic Financial Planning",
-      desc: "Goal-oriented asset allocation & lifetime roadmap",
-      href: "#services",
-      icon: Compass,
-    },
-    {
-      title: "Mutual Fund Portfolios",
-      desc: "Institutional research-backed mutual fund selection",
-      href: "#services",
-      icon: TrendingUp,
-    },
-    {
-      title: "Portfolio Management (PMS)",
-      desc: "High-conviction equity strategies for Ultra-HNIs",
-      href: "#services",
-      icon: ShieldCheck,
-    },
-    {
-      title: "Private Equity & Pre-IPO",
-      desc: "Exclusive access to unlisted growth leaders",
-      href: "#services",
-      icon: Sparkles,
-    },
-    {
-      title: "Equity Broking & Derivatives",
-      desc: "Institutional execution backed by Motilal Oswal",
-      href: "#services",
-      icon: TrendingUp,
-    },
-    {
-      title: "Fixed Income & Sovereign Bonds",
-      desc: "Capital preservation & high-grade yields",
-      href: "#services",
-      icon: ShieldCheck,
-    },
-    {
-      title: "Succession & Estate Planning",
-      desc: "Generational asset transition, Wills & Trusts",
-      href: "#services",
-      icon: Award,
-    },
-  ];
-
-  const calculatorsList = [
-    { title: "SIP & Wealth Compounder", href: "#calculators" },
-    { title: "Crorepati Milestone Blueprint", href: "#calculators" },
-    { title: "Child Future & Inflation Planner", href: "#calculators" },
+  const navLinks = [
+    { title: "HOME", href: "#home" },
+    { title: "ABOUT US", href: "#about" },
+    { title: "OUR SERVICES", href: "#services" },
+    { title: "GOAL BASED PLANNING", href: "#goals" },
+    { title: "RESOURCES", href: "#resources" },
+    { title: "CONTACT US", href: "#contact" },
   ];
 
   return (
     <>
-      {/* Top Quick Bar (Deep Corporate Blue) */}
-      <div className="bg-[#0A1E3F] text-xs text-white/90 py-2.5 px-4 sm:px-8 border-b border-white/10">
-        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
-          <div className="flex items-center gap-5">
-            <a
-              href="tel:+919879583119"
-              className="flex items-center gap-1.5 hover:text-orange-400 transition-colors font-medium"
-            >
-              <Phone className="w-3.5 h-3.5 text-orange-400" />
-              <span>+91 9879583119</span>
-            </a>
-            <span className="text-white/30 hidden sm:inline">|</span>
-            <a
-              href="mailto:info.amulyawealth@gmail.com"
-              className="hidden sm:flex items-center gap-1.5 hover:text-orange-400 transition-colors"
-            >
-              <Mail className="w-3.5 h-3.5 text-orange-400" />
-              <span>info.amulyawealth@gmail.com</span>
-            </a>
-          </div>
-
-          <div className="flex items-center gap-4 ml-auto">
-            <span className="hidden md:inline-flex items-center gap-1.5 text-[11px] text-white bg-blue-500/20 border border-blue-400/30 px-2.5 py-0.5 rounded-full font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
-              Institutional Partner: Motilal Oswal
-            </span>
-
-            {/* Client Portals Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setPortalsOpen(!portalsOpen)}
-                onBlur={() => setTimeout(() => setPortalsOpen(false), 200)}
-                className="flex items-center gap-1.5 text-white hover:text-orange-300 transition-colors font-semibold px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/15 border border-white/20 text-xs"
-              >
-                <Lock className="w-3 h-3 text-orange-400" />
-                <span>Client Portals</span>
-                <ChevronDown className="w-3 h-3" />
-              </button>
-
-              {portalsOpen && (
-                <div className="absolute right-0 mt-1.5 w-64 rounded-xl bg-white text-slate-800 border border-slate-200 shadow-2xl p-2 z-50">
-                  <a
-                    href="https://investor.motilaloswal.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-50 text-xs transition-colors group"
-                  >
-                    <div>
-                      <div className="font-semibold text-slate-900 group-hover:text-amulya-orange">
-                        Motilal Oswal Trading
-                      </div>
-                      <div className="text-[10px] text-slate-500">Equity & Derivatives Desk</div>
-                    </div>
-                    <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-amulya-orange" />
-                  </a>
-                  <a
-                    href="https://amulyawealth.my-portfolio.in"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-50 text-xs transition-colors group border-t border-slate-100"
-                  >
-                    <div>
-                      <div className="font-semibold text-slate-900 group-hover:text-amulya-orange">
-                        Mutual Fund Client Portal
-                      </div>
-                      <div className="text-[10px] text-slate-500">Portfolio Valuation & Statements</div>
-                    </div>
-                    <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-amulya-orange" />
-                  </a>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Clean White Header */}
-      <header
-        className={`sticky top-0 z-40 transition-all duration-300 ${
-          scrolled
-            ? "bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm py-3"
-            : "bg-white border-b border-slate-100 py-4"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between">
-          {/* Authentic Amulya Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <div className="relative h-11 w-44 sm:w-52">
+      {/* Top Header Contact & Login Bar */}
+      <div className="bg-white border-b border-slate-200 py-2.5 px-4 sm:px-8 text-xs text-slate-700">
+        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3">
+          {/* Logo */}
+          <Link href="/" className="flex items-center">
+            <div className="relative h-12 w-48 sm:w-56">
               <Image
                 src="/amulya-logo.png"
                 alt="Amulya Financial Services"
@@ -189,199 +56,109 @@ export default function Navbar({ onOpenConsultation }: NavbarProps) {
             </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-700">
-            {/* Wealth Solutions Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setSolutionsOpen(true)}
-              onMouseLeave={() => setSolutionsOpen(false)}
-            >
-              <button className="flex items-center gap-1.5 hover:text-amulya-orange transition-colors py-2">
-                <span>Wealth Solutions</span>
-                <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                    solutionsOpen ? "rotate-180 text-amulya-orange" : ""
-                  }`}
-                />
-              </button>
-
-              {solutionsOpen && (
-                <div className="absolute left-0 mt-0 w-80 rounded-2xl bg-white border border-slate-200 shadow-xl p-3 z-50">
-                  <div className="text-[11px] font-bold text-slate-400 px-3 py-1.5 uppercase tracking-wider">
-                    Institutional & Private Wealth
-                  </div>
-                  <div className="space-y-1 mt-1">
-                    {wealthSolutions.map((sol, idx) => {
-                      const Icon = sol.icon;
-                      return (
-                        <a
-                          key={idx}
-                          href={sol.href}
-                          onClick={() => setSolutionsOpen(false)}
-                          className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-orange-50/60 transition-all group"
-                        >
-                          <div className="p-2 rounded-lg bg-slate-100 text-amulya-blue group-hover:bg-amulya-orange group-hover:text-white transition-colors mt-0.5">
-                            <Icon className="w-4 h-4" />
-                          </div>
-                          <div>
-                            <div className="text-xs font-semibold text-slate-900 group-hover:text-amulya-orange transition-colors">
-                              {sol.title}
-                            </div>
-                            <div className="text-[11px] text-slate-500 line-clamp-1">
-                              {sol.desc}
-                            </div>
-                          </div>
-                        </a>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
+          {/* Quick Contacts & Top Action Buttons */}
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6 ml-auto">
+            <div className="hidden md:flex items-center gap-4 text-slate-600 font-medium">
+              <a
+                href="mailto:info.amulyawealth@gmail.com"
+                className="flex items-center gap-1.5 hover:text-amulya-orange transition-colors"
+              >
+                <Mail className="w-4 h-4 text-amulya-orange" />
+                <span>info.amulyawealth@gmail.com</span>
+              </a>
+              <span className="text-slate-300">|</span>
+              <a
+                href="tel:9879583119"
+                className="flex items-center gap-1.5 hover:text-amulya-orange transition-colors font-semibold text-slate-800"
+              >
+                <Phone className="w-4 h-4 text-amulya-orange" />
+                <span>9879583119</span>
+              </a>
             </div>
 
-            {/* Calculators Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setCalculatorsOpen(true)}
-              onMouseLeave={() => setCalculatorsOpen(false)}
-            >
-              <button className="flex items-center gap-1.5 hover:text-amulya-orange transition-colors py-2">
-                <Calculator className="w-4 h-4 text-amulya-blue" />
-                <span>Calculators</span>
-                <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                    calculatorsOpen ? "rotate-180 text-amulya-orange" : ""
-                  }`}
-                />
+            {/* Quick Action Buttons (MF Client Login, Trading Login, Sign Up) */}
+            <div className="flex items-center gap-2">
+              <a
+                href="https://amulyawealth.my-portfolio.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3.5 py-1.5 rounded-md text-xs font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-sm transition-all flex items-center gap-1.5"
+              >
+                <Lock className="w-3 h-3" />
+                <span>MF Client Login</span>
+              </a>
+
+              <a
+                href="https://investor.motilaloswal.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3.5 py-1.5 rounded-md text-xs font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-sm transition-all flex items-center gap-1.5"
+              >
+                <ExternalLink className="w-3 h-3" />
+                <span>Trading Login</span>
+              </a>
+
+              <button
+                onClick={onOpenConsultation}
+                className="px-3.5 py-1.5 rounded-md text-xs font-bold text-white bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-700 hover:to-blue-800 shadow-sm transition-all flex items-center gap-1.5 cursor-pointer"
+              >
+                <UserPlus className="w-3 h-3" />
+                <span>Sign Up</span>
               </button>
-
-              {calculatorsOpen && (
-                <div className="absolute left-0 mt-0 w-64 rounded-2xl bg-white border border-slate-200 shadow-xl p-2 z-50">
-                  {calculatorsList.map((calc, idx) => (
-                    <a
-                      key={idx}
-                      href={calc.href}
-                      onClick={() => setCalculatorsOpen(false)}
-                      className="block px-3 py-2.5 rounded-xl hover:bg-orange-50/60 text-xs font-semibold text-slate-800 hover:text-amulya-orange transition-colors"
-                    >
-                      {calc.title}
-                    </a>
-                  ))}
-                </div>
-              )}
             </div>
+          </div>
+        </div>
+      </div>
 
-            <a href="#founder" className="hover:text-amulya-orange transition-colors">
-              Leadership & Credibility
-            </a>
-
-            <a href="#insights" className="hover:text-amulya-orange transition-colors">
-              Insights & Media
-            </a>
-
-            <a href="#contact" className="hover:text-amulya-orange transition-colors">
-              Contact
-            </a>
+      {/* Main Navigation Bar */}
+      <header
+        className={`sticky top-0 z-40 transition-all duration-300 bg-[#EA580C] text-white shadow-md ${
+          scrolled ? "py-2 bg-orange-600/98 backdrop-blur-md" : "py-0"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between">
+          {/* Desktop Nav Links */}
+          <nav className="hidden lg:flex items-center text-xs font-bold tracking-wide">
+            {navLinks.map((link, idx) => (
+              <a
+                key={idx}
+                href={link.href}
+                className={`py-3.5 px-5 transition-colors uppercase border-b-2 ${
+                  link.title === "HOME"
+                    ? "bg-orange-700/60 border-white text-white"
+                    : "border-transparent text-white/95 hover:bg-orange-700/40 hover:text-white"
+                }`}
+              >
+                {link.title}
+              </a>
+            ))}
           </nav>
 
-          {/* CTA & Mobile Hamburger */}
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => {
-                if (onOpenConsultation) {
-                  onOpenConsultation();
-                } else {
-                  const el = document.getElementById("contact");
-                  el?.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
-              className="relative group hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-orange transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Book Wealth Consultation</span>
-            </button>
-
-            {/* Mobile Hamburger */}
+          <div className="lg:hidden py-2.5 flex items-center justify-between w-full">
+            <span className="text-xs font-bold uppercase tracking-wider text-white">Menu</span>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-900"
-              aria-label="Toggle navigation menu"
+              className="p-1.5 rounded-lg bg-orange-700 text-white"
+              aria-label="Toggle navigation"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Dropdown Drawer */}
+        {/* Mobile Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden px-4 pt-4 pb-6 bg-white border-b border-slate-200 space-y-4 max-h-[85vh] overflow-y-auto shadow-2xl">
-            <div className="space-y-1">
-              <div className="text-[11px] uppercase tracking-wider text-amulya-orange font-bold px-2 py-1">
-                Wealth Solutions
-              </div>
-              {wealthSolutions.map((sol, idx) => (
-                <a
-                  key={idx}
-                  href={sol.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block px-3 py-2 text-sm text-slate-700 font-medium hover:bg-orange-50 hover:text-amulya-orange rounded-lg"
-                >
-                  {sol.title}
-                </a>
-              ))}
-            </div>
-
-            <div className="pt-2 border-t border-slate-100 space-y-1">
-              <div className="text-[11px] uppercase tracking-wider text-amulya-orange font-bold px-2 py-1">
-                Tools & Portals
-              </div>
+          <div className="lg:hidden bg-orange-700 px-4 py-3 space-y-2 border-t border-orange-600">
+            {navLinks.map((link, idx) => (
               <a
-                href="#calculators"
+                key={idx}
+                href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2 px-3 py-2 text-sm text-slate-700 font-medium hover:bg-orange-50 hover:text-amulya-orange rounded-lg"
+                className="block py-2 px-3 text-xs font-bold text-white hover:bg-orange-800 rounded-md uppercase"
               >
-                <Calculator className="w-4 h-4 text-amulya-blue" />
-                Wealth Calculators
+                {link.title}
               </a>
-              <a
-                href="#founder"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 text-sm text-slate-700 font-medium hover:bg-orange-50 hover:text-amulya-orange rounded-lg"
-              >
-                Founder Track Record
-              </a>
-              <a
-                href="#insights"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 text-sm text-slate-700 font-medium hover:bg-orange-50 hover:text-amulya-orange rounded-lg"
-              >
-                Curated Insights & Videos
-              </a>
-              <a
-                href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 text-sm text-slate-700 font-medium hover:bg-orange-50 hover:text-amulya-orange rounded-lg"
-              >
-                Direct Office Contact
-              </a>
-            </div>
-
-            <div className="pt-3 border-t border-slate-100">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if (onOpenConsultation) {
-                    onOpenConsultation();
-                  } else {
-                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
-                className="w-full py-3 rounded-xl text-center text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 shadow-orange"
-              >
-                Book Wealth Consultation
-              </button>
-            </div>
+            ))}
           </div>
         )}
       </header>

@@ -3,27 +3,34 @@
 import React, { useState, useId } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  TrendingUp,
-  Target,
   GraduationCap,
-  Sparkles,
-  ArrowRight,
-  HelpCircle,
+  Heart,
+  Home,
+  Car,
+  Palmtree,
+  Shield,
+  Sun,
+  Target,
+  Coins,
+  PiggyBank,
+  Calculator,
   Percent,
   Calendar,
   Wallet,
+  ArrowRight,
+  HelpCircle,
 } from "lucide-react";
 import { formatINR, formatNumberINR } from "@/lib/utils";
 
-interface WealthCalculatorProps {
+interface GoalPlanningProps {
   onOpenConsultation?: (prefillNote?: string) => void;
 }
 
-export default function WealthCalculator({ onOpenConsultation }: WealthCalculatorProps) {
-  const [activeTab, setActiveTab] = useState<"sip" | "crorepati" | "education">("sip");
+export default function WealthCalculator({ onOpenConsultation }: GoalPlanningProps) {
+  const [activeTab, setActiveTab] = useState<"sip" | "crorepati" | "education" | "emi">("sip");
 
   // Tab 1: SIP States
-  const [sipMonthly, setSipMonthly] = useState<number>(50000);
+  const [sipMonthly, setSipMonthly] = useState<number>(25000);
   const [sipReturnRate, setSipReturnRate] = useState<number>(13.5);
   const [sipYears, setSipYears] = useState<number>(15);
 
@@ -32,13 +39,34 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
   const [targetYears, setTargetYears] = useState<number>(12);
   const [targetReturnRate, setTargetReturnRate] = useState<number>(13.5);
 
-  // Tab 3: Education States
-  const [currentCost, setCurrentCost] = useState<number>(3500000); // 35 Lakhs
+  // Tab 3: Child Education States
+  const [currentCost, setCurrentCost] = useState<number>(2500000); // 25 Lakhs
   const [yearsToCollege, setYearsToCollege] = useState<number>(10);
   const [educationInflation, setEducationInflation] = useState<number>(10);
   const [educationReturnRate, setEducationReturnRate] = useState<number>(12.5);
 
-  // Calculation Math for Tab 1 (SIP)
+  // Tab 4: EMI Calculator States
+  const [loanAmount, setLoanAmount] = useState<number>(5000000); // 50 Lakhs
+  const [loanRate, setLoanRate] = useState<number>(8.5);
+  const [loanTenureYears, setLoanTenureYears] = useState<number>(20);
+
+  // 12 Goals & Tools from Original Amulya Website
+  const goalTiles = [
+    { title: "Child's Education", icon: GraduationCap, tab: "education" as const, color: "bg-sky-600 text-white" },
+    { title: "Childs Marriage", icon: Heart, tab: "crorepati" as const, color: "bg-pink-600 text-white" },
+    { title: "Dream House", icon: Home, tab: "emi" as const, color: "bg-emerald-600 text-white" },
+    { title: "Dream Car", icon: Car, tab: "sip" as const, color: "bg-blue-600 text-white" },
+    { title: "Dream Vacation", icon: Palmtree, tab: "sip" as const, color: "bg-amber-600 text-white" },
+    { title: "Family Protection", icon: Shield, tab: "sip" as const, color: "bg-orange-600 text-white" },
+    { title: "Retirement Planning", icon: Sun, tab: "sip" as const, color: "bg-teal-600 text-white" },
+    { title: "Custom Goal", icon: Target, tab: "crorepati" as const, color: "bg-red-600 text-white" },
+    { title: "Crorepati Calculator", icon: Coins, tab: "crorepati" as const, color: "bg-indigo-600 text-white" },
+    { title: "SIP Planner", icon: PiggyBank, tab: "sip" as const, color: "bg-purple-600 text-white" },
+    { title: "FV Calculator", icon: Calculator, tab: "sip" as const, color: "bg-rose-600 text-white" },
+    { title: "EMI Calculator", icon: Calculator, tab: "emi" as const, color: "bg-emerald-700 text-white" },
+  ];
+
+  // Calculation Math for SIP
   const calculateSIP = () => {
     const P = sipMonthly;
     const i = sipReturnRate / 12 / 100;
@@ -54,7 +82,7 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
     };
   };
 
-  // Calculation Math for Tab 2 (Crorepati Blueprint)
+  // Calculation Math for Crorepati
   const calculateCrorepati = () => {
     const target = targetCorpus;
     const i = targetReturnRate / 12 / 100;
@@ -71,7 +99,7 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
     };
   };
 
-  // Calculation Math for Tab 3 (Education Planner)
+  // Calculation Math for Education
   const calculateEducation = () => {
     const futureCost = currentCost * Math.pow(1 + educationInflation / 100, yearsToCollege);
     const i = educationReturnRate / 12 / 100;
@@ -87,9 +115,25 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
     };
   };
 
+  // Calculation Math for EMI
+  const calculateEMI = () => {
+    const P = loanAmount;
+    const r = loanRate / 12 / 100;
+    const n = loanTenureYears * 12;
+    const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+    const totalPayment = emi * n;
+    const totalInterest = totalPayment - P;
+    return {
+      emi: Math.round(emi),
+      totalPayment: Math.round(totalPayment),
+      totalInterest: Math.round(totalInterest),
+    };
+  };
+
   const sipResult = calculateSIP();
   const crorepatiResult = calculateCrorepati();
   const educationResult = calculateEducation();
+  const emiResult = calculateEMI();
 
   const sipMonthlyId = useId();
   const sipReturnRateId = useId();
@@ -99,84 +143,120 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
   const currentCostId = useId();
   const yearsToCollegeId = useId();
   const educationInflationId = useId();
+  const loanAmountId = useId();
+  const loanRateId = useId();
+  const loanTenureYearsId = useId();
 
   return (
-    <section id="calculators" className="py-24 relative bg-slate-50 border-t border-slate-200/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 relative">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-100/80 border border-orange-300 text-amulya-orange text-xs font-bold uppercase tracking-wider mb-4">
-            <Sparkles className="w-3.5 h-3.5" />
-            Interactive Wealth Architecture Engine
-          </div>
-          <h2 className="font-serif text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight">
-            Simulate Your Compounding Power
+    <section id="goals" className="py-20 relative bg-slate-50 border-b border-slate-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
+        {/* Exact Section Header from Original Site */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 uppercase tracking-tight">
+            Goal Based Planning
           </h2>
+          <div className="w-16 h-1 bg-amulya-orange mx-auto mt-3 rounded-full" />
           <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
-            Mathematical discipline beats market timing. Explore real-time compounding projections tailored to your family&apos;s milestone horizons.
+            Select your milestone below to calculate the disciplined monthly investment required to achieve it.
           </p>
         </div>
 
-        {/* Tab Navigator */}
-        <div className="mt-12 flex justify-center">
-          <div className="p-1.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-wrap gap-1 sm:gap-2">
+        {/* 12 Goal Tiles from Original Site */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 mb-12">
+          {goalTiles.map((tile, idx) => {
+            const Icon = tile.icon;
+            const isCurrentActive = activeTab === tile.tab;
+            return (
+              <button
+                key={idx}
+                onClick={() => {
+                  setActiveTab(tile.tab);
+                  document.getElementById("interactive-calculator")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className={`p-4 rounded-xl flex flex-col items-center justify-center text-center transition-all duration-200 hover:-translate-y-1 shadow-sm border ${
+                  isCurrentActive
+                    ? "border-orange-500 ring-2 ring-orange-500/30 bg-white"
+                    : "border-slate-200 bg-white hover:border-slate-300"
+                }`}
+              >
+                <div className={`p-3 rounded-xl mb-2 ${tile.color}`}>
+                  <Icon className="w-6 h-6" />
+                </div>
+                <div className="text-xs font-bold text-slate-800 leading-tight">
+                  {tile.title}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Interactive Calculator Engine Card */}
+        <div
+          id="interactive-calculator"
+          className="rounded-3xl bg-white border border-slate-200 p-6 sm:p-10 shadow-card relative overflow-hidden"
+        >
+          {/* Active Calculator Tabs Bar */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-8 border-b border-slate-100 pb-5">
             <button
               onClick={() => setActiveTab("sip")}
-              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+              className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
                 activeTab === "sip"
-                  ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-orange"
-                  : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
+                  ? "bg-amulya-orange text-white shadow-orange"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
             >
-              <TrendingUp className="w-4 h-4" />
-              <span>SIP & Wealth Compounder</span>
+              SIP Planner & Compounding
             </button>
 
             <button
               onClick={() => setActiveTab("crorepati")}
-              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+              className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
                 activeTab === "crorepati"
-                  ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-orange"
-                  : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
+                  ? "bg-amulya-orange text-white shadow-orange"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
             >
-              <Target className="w-4 h-4" />
-              <span>Crorepati Blueprint</span>
+              Crorepati & Marriage Blueprint
             </button>
 
             <button
               onClick={() => setActiveTab("education")}
-              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+              className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
                 activeTab === "education"
-                  ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-orange"
-                  : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
+                  ? "bg-amulya-orange text-white shadow-orange"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
             >
-              <GraduationCap className="w-4 h-4" />
-              <span>Child Future & Inflation</span>
+              Child Education & Inflation
+            </button>
+
+            <button
+              onClick={() => setActiveTab("emi")}
+              className={`px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+                activeTab === "emi"
+                  ? "bg-amulya-orange text-white shadow-orange"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+              }`}
+            >
+              EMI Calculator (Dream House/Car)
             </button>
           </div>
-        </div>
 
-        {/* Calculator Body Card */}
-        <div className="mt-10 rounded-3xl bg-white border border-slate-200/80 p-6 sm:p-10 shadow-card relative overflow-hidden">
           <AnimatePresence mode="wait">
-            {/* TAB 1: SIP & WEALTH COMPOUNDER */}
+            {/* TAB 1: SIP */}
             {activeTab === "sip" && (
               <motion.div
                 key="sip"
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
               >
-                {/* Sliders Column */}
-                <div className="lg:col-span-7 space-y-7">
-                  {/* Slider 1: Monthly Investment */}
+                <div className="lg:col-span-7 space-y-6">
                   <div>
-                    <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={sipMonthlyId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
+                    <div className="flex justify-between items-center mb-2">
+                      <label htmlFor={sipMonthlyId} className="text-sm font-bold text-slate-800 flex items-center gap-2 cursor-pointer">
                         <Wallet className="w-4 h-4 text-amulya-orange" />
                         Monthly Investment (SIP)
                       </label>
@@ -187,26 +267,24 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                     <input
                       id={sipMonthlyId}
                       type="range"
-                      min={5000}
-                      max={1000000}
-                      step={5000}
+                      min={1000}
+                      max={500000}
+                      step={1000}
                       value={sipMonthly}
                       onChange={(e) => setSipMonthly(Number(e.target.value))}
                       className="w-full cursor-pointer"
                     />
-                    <div className="flex justify-between text-[11px] text-slate-500 mt-1.5 font-mono">
-                      <span>₹5,000</span>
-                      <span>₹2,50,000</span>
+                    <div className="flex justify-between text-[11px] text-slate-500 mt-1 font-mono">
+                      <span>₹1,000</span>
+                      <span>₹1,00,000</span>
                       <span>₹5,00,000</span>
-                      <span>₹10,00,000</span>
                     </div>
                   </div>
 
-                  {/* Slider 2: Expected Annual Return */}
                   <div>
-                    <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={sipReturnRateId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
-                        <Percent className="w-4 h-4 text-amulya-blue" />
+                    <div className="flex justify-between items-center mb-2">
+                      <label htmlFor={sipReturnRateId} className="text-sm font-bold text-slate-800 flex items-center gap-2 cursor-pointer">
+                        <Percent className="w-4 h-4 text-sky-600" />
                         Expected Annual Return (CAGR)
                       </label>
                       <span className="font-mono text-base font-bold text-sky-700 bg-sky-50 border border-sky-200 px-3 py-1 rounded-lg">
@@ -223,19 +301,13 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                       onChange={(e) => setSipReturnRate(Number(e.target.value))}
                       className="w-full cursor-pointer"
                     />
-                    <div className="flex justify-between text-[11px] text-slate-500 mt-1.5 font-mono">
-                      <span>8% (Conservative)</span>
-                      <span>13.5% (Balanced Equity)</span>
-                      <span>24% (Aggressive)</span>
-                    </div>
                   </div>
 
-                  {/* Slider 3: Time Period */}
                   <div>
-                    <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={sipYearsId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
+                    <div className="flex justify-between items-center mb-2">
+                      <label htmlFor={sipYearsId} className="text-sm font-bold text-slate-800 flex items-center gap-2 cursor-pointer">
                         <Calendar className="w-4 h-4 text-amulya-orange" />
-                        Investment Horizon
+                        Investment Period
                       </label>
                       <span className="font-mono text-base font-bold text-slate-900 bg-slate-100 border border-slate-200 px-3 py-1 rounded-lg">
                         {sipYears} {sipYears === 1 ? "Year" : "Years"}
@@ -251,122 +323,70 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                       onChange={(e) => setSipYears(Number(e.target.value))}
                       className="w-full cursor-pointer"
                     />
-                    <div className="flex justify-between text-[11px] text-slate-500 mt-1.5 font-mono">
-                      <span>1 Year</span>
-                      <span>10 Years</span>
-                      <span>20 Years</span>
-                      <span>35 Years</span>
-                    </div>
-                  </div>
-
-                  {/* Compounding Pro-tip */}
-                  <div className="p-4 rounded-xl bg-orange-50/50 border border-orange-200/60 flex items-start gap-3">
-                    <HelpCircle className="w-4 h-4 text-amulya-orange mt-0.5 shrink-0" />
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      Compounding shows geometric acceleration after year 10. By continuing through market volatility, your wealth multiplier expands exponentially.
-                    </p>
                   </div>
                 </div>
 
-                {/* Results Column (Deep Navy Accent Box) */}
                 <div className="lg:col-span-5 bg-[#0A1E3F] text-white rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-xl">
                   <div>
                     <div className="text-xs uppercase tracking-widest font-bold text-sky-200">
-                      Estimated Future Corpus
+                      Estimated Future Value (FV)
                     </div>
-                    <div className="mt-2 font-serif text-3xl sm:text-4xl font-extrabold text-orange-400 tracking-tight">
+                    <div className="mt-2 font-sans text-3xl sm:text-4xl font-extrabold text-orange-400">
                       {formatINR(sipResult.maturity)}
                     </div>
 
-                    {/* Progress Bar Visualizer */}
-                    <div className="mt-6">
-                      <div className="flex justify-between text-xs text-sky-200 mb-1.5 font-medium">
-                        <span>Invested ({Math.round(100 - sipResult.gainRatio)}%)</span>
-                        <span className="text-orange-400 font-bold">Gain ({Math.round(sipResult.gainRatio)}%)</span>
+                    <div className="mt-6 space-y-3 border-t border-white/10 pt-4 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-slate-300">Total Invested Amount:</span>
+                        <span className="font-mono font-bold text-white">{formatINR(sipResult.invested)}</span>
                       </div>
-                      <div className="h-3 w-full bg-slate-700/60 rounded-full overflow-hidden flex">
-                        <div
-                          className="bg-slate-400 h-full transition-all duration-300"
-                          style={{ width: `${100 - sipResult.gainRatio}%` }}
-                        />
-                        <div
-                          className="bg-gradient-to-r from-orange-500 to-amber-400 h-full transition-all duration-300"
-                          style={{ width: `${sipResult.gainRatio}%` }}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Breakdown Numbers */}
-                    <div className="mt-6 space-y-3.5 border-t border-white/10 pt-4">
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-300">Total Capital Invested</span>
-                        <span className="font-mono font-semibold text-white">
-                          {formatINR(sipResult.invested)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-300">Estimated Wealth Creation</span>
-                        <span className="font-mono font-bold text-orange-400">
-                          +{formatINR(sipResult.wealthGain)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-300">Wealth Multiplier</span>
-                        <span className="font-mono font-bold text-sky-300">
-                          {(sipResult.maturity / (sipResult.invested || 1)).toFixed(2)}x
-                        </span>
+                      <div className="flex justify-between">
+                        <span className="text-slate-300">Estimated Wealth Gain:</span>
+                        <span className="font-mono font-bold text-orange-400">+{formatINR(sipResult.wealthGain)}</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Conversion Button */}
                   <div className="mt-8 pt-6 border-t border-white/10">
                     <button
                       onClick={() =>
-                        onOpenConsultation
-                          ? onOpenConsultation(
-                              `SIP Roadmap: ₹${formatNumberINR(
-                                sipMonthly
-                              )}/mo for ${sipYears} yrs at ${sipReturnRate}% CAGR`
-                            )
-                          : document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+                        onOpenConsultation?.(
+                          `SIP Plan: ₹${formatNumberINR(sipMonthly)}/mo for ${sipYears} yrs`
+                        )
                       }
                       className="w-full py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-orange transition-all flex items-center justify-center gap-2 cursor-pointer"
                     >
-                      <span>Lock In This Wealth Roadmap</span>
+                      <span>Start Your SIP Plan</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
-                    <p className="text-[11px] text-center text-sky-200/80 mt-2">
-                      Private institutional fund allocations tailored to your tax slab.
-                    </p>
                   </div>
                 </div>
               </motion.div>
             )}
 
-            {/* TAB 2: CROREPATI MILESTONE BLUEPRINT */}
+            {/* TAB 2: CROREPATI */}
             {activeTab === "crorepati" && (
               <motion.div
                 key="crorepati"
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
               >
-                <div className="lg:col-span-7 space-y-7">
+                <div className="lg:col-span-7 space-y-6">
                   <div>
-                    <label className="text-sm font-semibold text-slate-800 block mb-2.5">
-                      Select Target Milestone Corpus
+                    <label className="text-sm font-bold text-slate-800 block mb-2">
+                      Target Goal Corpus
                     </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {[10000000, 25000000, 50000000, 100000000].map((corpus) => (
                         <button
                           key={corpus}
                           onClick={() => setTargetCorpus(corpus)}
-                          className={`py-3 px-2 rounded-xl text-xs font-bold font-mono transition-all border ${
+                          className={`py-2.5 px-2 rounded-xl text-xs font-bold font-mono transition-all border ${
                             targetCorpus === corpus
-                              ? "bg-amulya-orange text-white border-amulya-orange shadow-orange"
+                              ? "bg-amulya-orange text-white border-amulya-orange shadow-sm"
                               : "bg-slate-50 text-slate-800 border-slate-200 hover:border-amulya-orange"
                           }`}
                         >
@@ -377,10 +397,10 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                   </div>
 
                   <div>
-                    <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={targetYearsId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
+                    <div className="flex justify-between items-center mb-2">
+                      <label htmlFor={targetYearsId} className="text-sm font-bold text-slate-800 flex items-center gap-2 cursor-pointer">
                         <Calendar className="w-4 h-4 text-amulya-orange" />
-                        Target Timeframe to Achieve
+                        Target Timeframe
                       </label>
                       <span className="font-mono text-base font-bold text-slate-900 bg-slate-100 border border-slate-200 px-3 py-1 rounded-lg">
                         {targetYears} Years
@@ -396,19 +416,13 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                       onChange={(e) => setTargetYears(Number(e.target.value))}
                       className="w-full cursor-pointer"
                     />
-                    <div className="flex justify-between text-[11px] text-slate-500 mt-1.5 font-mono">
-                      <span>3 Years</span>
-                      <span>10 Years</span>
-                      <span>20 Years</span>
-                      <span>30 Years</span>
-                    </div>
                   </div>
 
                   <div>
-                    <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={targetReturnRateId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
-                        <Percent className="w-4 h-4 text-amulya-blue" />
-                        Assumed Portfolio Return Rate
+                    <div className="flex justify-between items-center mb-2">
+                      <label htmlFor={targetReturnRateId} className="text-sm font-bold text-slate-800 flex items-center gap-2 cursor-pointer">
+                        <Percent className="w-4 h-4 text-sky-600" />
+                        Assumed Return Rate
                       </label>
                       <span className="font-mono text-base font-bold text-sky-700 bg-sky-50 border border-sky-200 px-3 py-1 rounded-lg">
                         {targetReturnRate}%
@@ -430,31 +444,21 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                 <div className="lg:col-span-5 bg-[#0A1E3F] text-white rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-xl">
                   <div>
                     <div className="text-xs uppercase tracking-widest font-bold text-sky-200">
-                      Required Monthly Disciplined SIP
+                      Required Monthly SIP
                     </div>
-                    <div className="mt-2 font-serif text-3xl sm:text-4xl font-extrabold text-orange-400 tracking-tight">
+                    <div className="mt-2 font-sans text-3xl sm:text-4xl font-extrabold text-orange-400">
                       ₹{formatNumberINR(crorepatiResult.monthlyNeeded)}{" "}
-                      <span className="text-sm font-sans font-normal text-slate-300">/ month</span>
+                      <span className="text-sm font-normal text-slate-300">/ mo</span>
                     </div>
 
-                    <div className="mt-6 space-y-3.5 border-t border-white/10 pt-4">
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-300">Target Milestone</span>
-                        <span className="font-mono font-semibold text-white">
-                          {formatINR(targetCorpus)}
-                        </span>
+                    <div className="mt-6 space-y-3 border-t border-white/10 pt-4 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-slate-300">Target Goal:</span>
+                        <span className="font-mono font-bold text-white">{formatINR(targetCorpus)}</span>
                       </div>
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-300">Total Capital Outlay</span>
-                        <span className="font-mono font-semibold text-slate-200">
-                          {formatINR(crorepatiResult.totalInvested)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-300">Gain Generated by Markets</span>
-                        <span className="font-mono font-bold text-orange-400">
-                          +{formatINR(crorepatiResult.wealthGain)}
-                        </span>
+                      <div className="flex justify-between">
+                        <span className="text-slate-300">Market Wealth Gain:</span>
+                        <span className="font-mono font-bold text-orange-400">+{formatINR(crorepatiResult.wealthGain)}</span>
                       </div>
                     </div>
                   </div>
@@ -462,19 +466,13 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                   <div className="mt-8 pt-6 border-t border-white/10">
                     <button
                       onClick={() =>
-                        onOpenConsultation
-                          ? onOpenConsultation(
-                              `Crorepati Blueprint: Target ${formatINR(
-                                targetCorpus
-                              )} in ${targetYears} years (Est. SIP: ₹${formatNumberINR(
-                                crorepatiResult.monthlyNeeded
-                              )}/mo)`
-                            )
-                          : document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+                        onOpenConsultation?.(
+                          `Goal Target: ${formatINR(targetCorpus)} in ${targetYears} years`
+                        )
                       }
                       className="w-full py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-orange transition-all flex items-center justify-center gap-2 cursor-pointer"
                     >
-                      <span>Design Milestone Portfolio</span>
+                      <span>Plan This Goal</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
@@ -482,20 +480,20 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
               </motion.div>
             )}
 
-            {/* TAB 3: CHILD FUTURE & EDUCATION INFLATION */}
+            {/* TAB 3: EDUCATION */}
             {activeTab === "education" && (
               <motion.div
                 key="education"
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
               >
-                <div className="lg:col-span-7 space-y-7">
+                <div className="lg:col-span-7 space-y-6">
                   <div>
-                    <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={currentCostId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
+                    <div className="flex justify-between items-center mb-2">
+                      <label htmlFor={currentCostId} className="text-sm font-bold text-slate-800 flex items-center gap-2 cursor-pointer">
                         <GraduationCap className="w-4 h-4 text-amulya-orange" />
                         Today&apos;s Cost of Target Education
                       </label>
@@ -507,25 +505,19 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                       id={currentCostId}
                       type="range"
                       min={500000}
-                      max={20000000}
+                      max={15000000}
                       step={500000}
                       value={currentCost}
                       onChange={(e) => setCurrentCost(Number(e.target.value))}
                       className="w-full cursor-pointer"
                     />
-                    <div className="flex justify-between text-[11px] text-slate-500 mt-1.5 font-mono">
-                      <span>₹5 Lakh</span>
-                      <span>₹50 Lakh</span>
-                      <span>₹1 Crore</span>
-                      <span>₹2 Crore</span>
-                    </div>
                   </div>
 
                   <div>
-                    <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={yearsToCollegeId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
+                    <div className="flex justify-between items-center mb-2">
+                      <label htmlFor={yearsToCollegeId} className="text-sm font-bold text-slate-800 flex items-center gap-2 cursor-pointer">
                         <Calendar className="w-4 h-4 text-amulya-orange" />
-                        Years Until College / Degree Begins
+                        Years Until College
                       </label>
                       <span className="font-mono text-base font-bold text-slate-900 bg-slate-100 border border-slate-200 px-3 py-1 rounded-lg">
                         {yearsToCollege} Years
@@ -544,9 +536,9 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                   </div>
 
                   <div>
-                    <div className="flex justify-between items-center mb-2.5">
-                      <label htmlFor={educationInflationId} className="text-sm font-semibold text-slate-800 flex items-center gap-2 cursor-pointer">
-                        <TrendingUp className="w-4 h-4 text-orange-600" />
+                    <div className="flex justify-between items-center mb-2">
+                      <label htmlFor={educationInflationId} className="text-sm font-bold text-slate-800 flex items-center gap-2 cursor-pointer">
+                        <Percent className="w-4 h-4 text-sky-600" />
                         Education Inflation Rate
                       </label>
                       <span className="font-mono text-base font-bold text-orange-700 bg-orange-50 border border-orange-200 px-3 py-1 rounded-lg">
@@ -571,28 +563,18 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                     <div className="text-xs uppercase tracking-widest font-bold text-sky-200">
                       Inflated Cost at Admission
                     </div>
-                    <div className="mt-2 font-serif text-3xl sm:text-4xl font-extrabold text-orange-400 tracking-tight">
+                    <div className="mt-2 font-sans text-3xl sm:text-4xl font-extrabold text-orange-400">
                       {formatINR(educationResult.futureCost)}
                     </div>
 
-                    <div className="mt-6 space-y-3.5 border-t border-white/10 pt-4">
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-300">Required Monthly SIP</span>
-                        <span className="font-mono font-bold text-orange-400 text-base">
-                          ₹{formatNumberINR(educationResult.monthlyNeeded)}/mo
-                        </span>
+                    <div className="mt-6 space-y-3 border-t border-white/10 pt-4 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-slate-300">Required Monthly SIP:</span>
+                        <span className="font-mono font-bold text-orange-400 text-base">₹{formatNumberINR(educationResult.monthlyNeeded)}/mo</span>
                       </div>
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-300">Today&apos;s Baseline Cost</span>
-                        <span className="font-mono text-slate-200">
-                          {formatINR(currentCost)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-slate-300">Inflation Addition</span>
-                        <span className="font-mono text-sky-300 font-semibold">
-                          +{formatINR(educationResult.inflationHike)}
-                        </span>
+                      <div className="flex justify-between">
+                        <span className="text-slate-300">Current Cost Today:</span>
+                        <span className="font-mono font-bold text-white">{formatINR(currentCost)}</span>
                       </div>
                     </div>
                   </div>
@@ -600,19 +582,134 @@ export default function WealthCalculator({ onOpenConsultation }: WealthCalculato
                   <div className="mt-8 pt-6 border-t border-white/10">
                     <button
                       onClick={() =>
-                        onOpenConsultation
-                          ? onOpenConsultation(
-                              `Child Education Fund: Future Goal ${formatINR(
-                                educationResult.futureCost
-                              )} in ${yearsToCollege} yrs (Req. SIP: ₹${formatNumberINR(
-                                educationResult.monthlyNeeded
-                              )}/mo)`
-                            )
-                          : document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+                        onOpenConsultation?.(
+                          `Child Education: Target ${formatINR(educationResult.futureCost)} in ${yearsToCollege} yrs`
+                        )
                       }
                       className="w-full py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-orange transition-all flex items-center justify-center gap-2 cursor-pointer"
                     >
-                      <span>Secure Child&apos;s Education Plan</span>
+                      <span>Secure Education Plan</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* TAB 4: EMI (DREAM HOUSE & DREAM CAR) */}
+            {activeTab === "emi" && (
+              <motion.div
+                key="emi"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
+              >
+                <div className="lg:col-span-7 space-y-6">
+                  <div>
+                    <div className="flex justify-between items-center mb-2">
+                      <label htmlFor={loanAmountId} className="text-sm font-bold text-slate-800 flex items-center gap-2 cursor-pointer">
+                        <Home className="w-4 h-4 text-amulya-orange" />
+                        Loan Amount (Dream House / Car)
+                      </label>
+                      <span className="font-mono text-base font-bold text-slate-900 bg-orange-50 border border-orange-200 px-3 py-1 rounded-lg">
+                        {formatINR(loanAmount)}
+                      </span>
+                    </div>
+                    <input
+                      id={loanAmountId}
+                      type="range"
+                      min={500000}
+                      max={20000000}
+                      step={500000}
+                      value={loanAmount}
+                      onChange={(e) => setLoanAmount(Number(e.target.value))}
+                      className="w-full cursor-pointer"
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between items-center mb-2">
+                      <label htmlFor={loanRateId} className="text-sm font-bold text-slate-800 flex items-center gap-2 cursor-pointer">
+                        <Percent className="w-4 h-4 text-sky-600" />
+                        Interest Rate (p.a.)
+                      </label>
+                      <span className="font-mono text-base font-bold text-sky-700 bg-sky-50 border border-sky-200 px-3 py-1 rounded-lg">
+                        {loanRate}%
+                      </span>
+                    </div>
+                    <input
+                      id={loanRateId}
+                      type="range"
+                      min={6.5}
+                      max={15}
+                      step={0.25}
+                      value={loanRate}
+                      onChange={(e) => setLoanRate(Number(e.target.value))}
+                      className="w-full cursor-pointer"
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between items-center mb-2">
+                      <label htmlFor={loanTenureYearsId} className="text-sm font-bold text-slate-800 flex items-center gap-2 cursor-pointer">
+                        <Calendar className="w-4 h-4 text-amulya-orange" />
+                        Loan Tenure
+                      </label>
+                      <span className="font-mono text-base font-bold text-slate-900 bg-slate-100 border border-slate-200 px-3 py-1 rounded-lg">
+                        {loanTenureYears} Years
+                      </span>
+                    </div>
+                    <input
+                      id={loanTenureYearsId}
+                      type="range"
+                      min={1}
+                      max={30}
+                      step={1}
+                      value={loanTenureYears}
+                      onChange={(e) => setLoanTenureYears(Number(e.target.value))}
+                      className="w-full cursor-pointer"
+                    />
+                  </div>
+                </div>
+
+                <div className="lg:col-span-5 bg-[#0A1E3F] text-white rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-xl">
+                  <div>
+                    <div className="text-xs uppercase tracking-widest font-bold text-sky-200">
+                      Calculated Monthly EMI
+                    </div>
+                    <div className="mt-2 font-sans text-3xl sm:text-4xl font-extrabold text-orange-400">
+                      ₹{formatNumberINR(emiResult.emi)}{" "}
+                      <span className="text-sm font-normal text-slate-300">/ mo</span>
+                    </div>
+
+                    <div className="mt-6 space-y-3 border-t border-white/10 pt-4 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-slate-300">Principal Amount:</span>
+                        <span className="font-mono font-bold text-white">{formatINR(loanAmount)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-300">Total Interest Payable:</span>
+                        <span className="font-mono font-bold text-sky-300">+{formatINR(emiResult.totalInterest)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-300">Total Payment (Principal + Interest):</span>
+                        <span className="font-mono font-bold text-orange-400">{formatINR(emiResult.totalPayment)}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-8 pt-6 border-t border-white/10">
+                    <button
+                      onClick={() =>
+                        onOpenConsultation?.(
+                          `Loan Planning: ${formatINR(loanAmount)} for ${loanTenureYears} yrs (EMI: ₹${formatNumberINR(emiResult.emi)}/mo)`
+                        )
+                      }
+                      className="w-full py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-orange transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <span>Inquire About Loan Solutions</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>

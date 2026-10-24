@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { Play, Sparkles, X, Clock, Video } from "lucide-react";
+import { Play, FileText, Download, X, Clock, Video, CheckCircle2 } from "lucide-react";
 
 interface MediaItem {
   id: string;
   title: string;
-  category: "basics" | "cycles" | "mf";
+  category: "videos" | "forms" | "kyc";
   categoryLabel: string;
   duration: string;
   source: string;
@@ -16,15 +16,14 @@ interface MediaItem {
 }
 
 export default function KnowledgeHub() {
-  const [activeFilter, setActiveFilter] = useState<"all" | "basics" | "cycles" | "mf">("all");
   const [selectedVideo, setSelectedVideo] = useState<MediaItem | null>(null);
 
   const mediaList: MediaItem[] = [
     {
       id: "one-idiot",
       title: "One Idiot: The Benchmark of Financial Discipline",
-      category: "basics",
-      categoryLabel: "Wealth Basics",
+      category: "videos",
+      categoryLabel: "Educational Film",
       duration: "33 mins",
       source: "IDFC Foundation & Amole Gupte",
       desc: "The acclaimed investor awareness film on financial discipline, showing the transformation from reckless consumerism to systematic compounding freedom.",
@@ -34,8 +33,8 @@ export default function KnowledgeHub() {
     {
       id: "return-of-one-idiot",
       title: "Return of One Idiot: Retirement & Compounding Freedom",
-      category: "basics",
-      categoryLabel: "Wealth Basics",
+      category: "videos",
+      categoryLabel: "Educational Film",
       duration: "30 mins",
       source: "Bandhan Mutual Fund (IDFC AMC)",
       desc: "The sequel masterclass film highlighting how disciplined long-term SIPs beat lifestyle inflation and ensure financial independence in retirement.",
@@ -45,8 +44,8 @@ export default function KnowledgeHub() {
     {
       id: "motilal-wcs",
       title: "Annual Wealth Creation Study: High-Growth Equities",
-      category: "mf",
-      categoryLabel: "Mutual Funds",
+      category: "videos",
+      categoryLabel: "Market Insights",
       duration: "45 mins",
       source: "Motilal Oswal Financial Services",
       desc: "Institutional framework for identifying wealth-multiplying businesses, understanding longevity of growth, and navigating market cycles.",
@@ -56,8 +55,8 @@ export default function KnowledgeHub() {
     {
       id: "power-of-sip",
       title: "The Mathematical Power of Disciplined SIPs",
-      category: "mf",
-      categoryLabel: "Mutual Funds",
+      category: "videos",
+      categoryLabel: "Educational Series",
       duration: "15 mins",
       source: "AMFI Investor Education Series",
       desc: "Why rupee cost averaging and regular reinvestment outperform attempting to time market peaks and troughs.",
@@ -66,69 +65,104 @@ export default function KnowledgeHub() {
     },
   ];
 
-  const filtered = activeFilter === "all" ? mediaList : mediaList.filter((m) => m.category === activeFilter);
+  const resourcePillars = [
+    {
+      title: "Mutual Fund Forms",
+      desc: "Direct access to SIP registration, common transaction slips, nominee updates, and redemption forms across fund houses.",
+      icon: FileText,
+      linkText: "Request Forms Support",
+    },
+    {
+      title: "KYC / PAN Assistance",
+      desc: "Complete your KRA KYC, CKYC validation, FATCA compliance, and PAN-Aadhaar linking with full advisory assistance.",
+      icon: CheckCircle2,
+      linkText: "Get KYC Support",
+    },
+    {
+      title: "Financial Calculators",
+      desc: "Comprehensive suite of goal calculators for Retirement, Child's Education, Marriage, House, Car, and SIP Future Value.",
+      icon: Download,
+      linkText: "Explore Calculators",
+      href: "#goals",
+    },
+  ];
 
   return (
-    <section id="insights" className="py-24 relative bg-white border-t border-slate-200/80">
+    <section id="resources" className="py-20 relative bg-slate-50 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-100/80 border border-orange-300 text-amulya-orange text-xs font-bold uppercase tracking-wider mb-4">
-              <Sparkles className="w-3.5 h-3.5" />
-              Curated Financial Education
-            </div>
-            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight">
-              Investor Knowledge & Market Films
-            </h2>
-            <p className="mt-4 text-slate-600 text-sm sm:text-base max-w-2xl leading-relaxed">
-              We believe informed investors make disciplined partners. Explore our curated film library on market behavior, compounding, and wealth preservation.
-            </p>
-          </div>
+        {/* Exact Section Header from Original Site */}
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 uppercase tracking-tight">
+            Resources
+          </h2>
+          <div className="w-16 h-1 bg-amulya-orange mx-auto mt-3 rounded-full" />
+          <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
+            Essential investor tools, educational videos, regulatory forms, and KYC compliance resources.
+          </p>
+        </div>
 
-          {/* Filter Pills */}
-          <div className="flex flex-wrap gap-2">
-            {[
-              { id: "all", label: "All Insights" },
-              { id: "basics", label: "Wealth Basics" },
-              { id: "mf", label: "Mutual Funds" },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveFilter(tab.id as any)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${
-                  activeFilter === tab.id
-                    ? "bg-amulya-orange text-white border-amulya-orange shadow-orange"
-                    : "bg-slate-100 text-slate-700 border-slate-200 hover:border-amulya-orange"
-                }`}
+        {/* Resources Pillar Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          {resourcePillars.map((res, idx) => {
+            const Icon = res.icon;
+            return (
+              <div
+                key={idx}
+                className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between hover:border-amulya-orange transition-all"
               >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+                <div>
+                  <div className="p-3 rounded-xl bg-orange-50 text-amulya-orange w-fit mb-4">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-bold text-slate-900 uppercase tracking-tight">
+                    {res.title}
+                  </h3>
+                  <p className="mt-2 text-xs text-slate-600 leading-relaxed">
+                    {res.desc}
+                  </p>
+                </div>
+                <div className="mt-6 pt-4 border-t border-slate-100">
+                  <a
+                    href={res.href || "#contact"}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-amulya-orange hover:text-orange-700 transition-colors"
+                  >
+                    <span>{res.linkText}</span>
+                    <span>→</span>
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Educational Videos Header */}
+        <div className="mb-8">
+          <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 uppercase tracking-tight">
+            Educational Videos & Investor Films
+          </h3>
+          <p className="text-xs text-slate-500 mt-1">
+            Curated financial education films on saving discipline, compounding, and market cycles.
+          </p>
         </div>
 
         {/* Video Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filtered.map((item) => (
+          {mediaList.map((item) => (
             <div
               key={item.id}
               onClick={() => setSelectedVideo(item)}
-              className="group cursor-pointer rounded-2xl bg-white border border-slate-200 hover:border-amulya-orange overflow-hidden transition-all duration-300 hover:-translate-y-1.5 shadow-soft hover:shadow-card flex flex-col justify-between"
+              className="group cursor-pointer rounded-2xl bg-white border border-slate-200 hover:border-amulya-orange overflow-hidden transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-card flex flex-col justify-between"
             >
               <div>
-                {/* Thumbnail Preview with Play Icon */}
                 <div
                   className={`relative h-44 w-full bg-gradient-to-br ${item.thumbnailGradient} border-b border-slate-200 flex items-center justify-center overflow-hidden`}
                 >
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
 
-                  {/* Play Button Icon */}
                   <div className="relative w-14 h-14 rounded-full bg-amulya-orange text-white flex items-center justify-center shadow-orange group-hover:scale-110 transition-transform">
                     <Play className="w-6 h-6 fill-current translate-x-0.5" />
                   </div>
 
-                  {/* Badges on Thumbnail */}
                   <div className="absolute top-3 left-3">
                     <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-black/60 backdrop-blur-md text-white border border-white/20">
                       {item.categoryLabel}
@@ -141,10 +175,9 @@ export default function KnowledgeHub() {
                   </div>
                 </div>
 
-                {/* Card Content */}
                 <div className="p-5">
                   <div className="text-[11px] text-slate-500 font-semibold">{item.source}</div>
-                  <h3 className="font-serif text-base font-bold text-slate-900 group-hover:text-amulya-orange transition-colors mt-1.5 leading-snug line-clamp-2">
+                  <h3 className="text-base font-bold text-slate-900 group-hover:text-amulya-orange transition-colors mt-1.5 leading-snug line-clamp-2">
                     {item.title}
                   </h3>
                   <p className="text-xs text-slate-600 mt-2 leading-relaxed line-clamp-3 font-normal">
@@ -153,7 +186,6 @@ export default function KnowledgeHub() {
                 </div>
               </div>
 
-              {/* Bottom Card Action */}
               <div className="px-5 pb-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-amulya-orange">
                 <span className="inline-flex items-center gap-1.5">
                   <Video className="w-3.5 h-3.5" /> Watch Film
@@ -168,13 +200,12 @@ export default function KnowledgeHub() {
         {selectedVideo && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
             <div className="relative w-full max-w-4xl rounded-3xl bg-white border border-slate-200 shadow-2xl overflow-hidden">
-              {/* Modal Header */}
               <div className="p-4 sm:p-5 flex items-center justify-between border-b border-slate-200 bg-slate-50">
                 <div>
                   <span className="text-[11px] font-bold text-amulya-orange uppercase tracking-wider">
                     {selectedVideo.categoryLabel} • {selectedVideo.source}
                   </span>
-                  <h3 className="font-serif text-lg sm:text-xl font-bold text-slate-900 mt-0.5">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mt-0.5">
                     {selectedVideo.title}
                   </h3>
                 </div>
@@ -186,7 +217,6 @@ export default function KnowledgeHub() {
                 </button>
               </div>
 
-              {/* Responsive Video Frame */}
               <div className="relative aspect-video w-full bg-black">
                 <iframe
                   className="w-full h-full"
@@ -197,7 +227,6 @@ export default function KnowledgeHub() {
                 />
               </div>
 
-              {/* Modal Footer */}
               <div className="p-4 sm:p-5 bg-white flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600">
                 <p className="max-w-2xl">{selectedVideo.desc}</p>
                 <button
